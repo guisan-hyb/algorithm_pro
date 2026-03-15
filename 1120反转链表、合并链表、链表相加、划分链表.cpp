@@ -186,6 +186,75 @@ Node* mergeTwoLists(Node* L1, Node* L2)//传来的两个链表都是升序排列
 // 你可以假设除了数字 0 之外，这两个数都不会以 0 开头
 // 测试链接：https://leetcode.cn/problems/add-two-numbers/
 
+//法一：迭代
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int carry = 0;
+        ListNode* dummy = new ListNode;
+        ListNode* cur=dummy;
+        while(l1!=nullptr||l2!=nullptr||carry!=0)
+        {
+            int sum = carry;
+            if(l1)
+            {
+                sum+=l1->val;
+                l1=l1->next;
+            }
+            if(l2)
+            {
+                sum+=l2->val;
+                l2=l2->next;
+            }
+            carry = sum/10;
+            cur=cur->next=new ListNode(sum%10);
+        }
+        return dummy->next;
+    }
+};
+
+//法二：递归
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2, int carry = 0) {
+        if (l1 == nullptr && l2 == nullptr && carry == 0)
+            return nullptr;
+
+        int sum = carry;
+        if(l1)
+        {
+            sum+=l1->val;
+            l1=l1->next;
+        }
+        if(l2)
+        {
+            sum+=l2->val;
+            l2=l2->next;
+        }
+
+        return new ListNode(sum%10,addTwoNumbers(l1,l2,sum/10));
+    }
+};
 
 
 typedef int ElemType;
@@ -234,6 +303,63 @@ Node* addTwoNumbers(Node* h1, Node* h2)
 
 
 //划分链表
+// 给你一个链表的头节点 head 和一个特定值 x
+// 请你对链表进行分隔，使得所有 小于 x 的节点都出现在 大于或等于 x 的节点之前。
+// 你应当 保留 两个分区中每个节点的初始相对位置
+// 测试链接 : https://leetcode.cn/problems/partition-list/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        ListNode* leftH = nullptr;
+        ListNode* leftT = nullptr;
+        ListNode* rightH = nullptr;
+        ListNode* rightT = nullptr;
+
+        while (head != nullptr) {
+            if (head->val < x) {
+                if (!leftH) {
+                    leftH = head;
+                    leftT = leftH;
+                } else {
+                    leftT->next = head;
+                    leftT = leftT->next;
+                }
+
+            } else if (head->val >= x) {
+                if (!rightH) {
+                    rightH = head;
+                    rightT = rightH;
+                } else {
+                    rightT->next = head;
+                    rightT = rightT->next;
+                }
+            }
+            head = head->next;
+        }
+        if (leftH)
+            leftT->next = nullptr;
+        if (rightH)
+            rightT->next = nullptr;
+
+        if (leftH == nullptr)
+            return rightH;
+        leftT->next = rightH;
+        return leftH;
+    }
+};
+
+
 typedef int ElemType;
 struct Node
 {
