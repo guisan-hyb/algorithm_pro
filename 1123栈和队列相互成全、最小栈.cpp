@@ -1,15 +1,64 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 using namespace std;
-//Õ»ºÍ¶ÓÁĞÏà»¥ÊµÏÖ
-// Õ»ÊµÏÖ¶ÓÁĞ
+//æ ˆå’Œé˜Ÿåˆ—ç›¸äº’å®ç°
+// æ ˆå®ç°é˜Ÿåˆ—
+// æµ‹è¯•é“¾æ¥ : https://leetcode.cn/problems/implement-queue-using-stacks/
+
+class MyQueue {
+private:
+    stack<int> in;
+    stack<int> out;
+
+    void inToOut() {
+        if (out.empty()) {
+            while (!in.empty()) {
+                int tp = in.top();
+                out.push(tp);
+                in.pop();
+            }
+        }
+    }
+
+public:
+    MyQueue() {}
+
+    void push(int x) {
+        in.push(x);
+        inToOut();
+    }
+
+    int pop() {
+        inToOut();
+        int tp = out.top();
+        out.pop();
+        return tp;
+    }
+
+    int peek() {
+        inToOut();
+        return out.top();
+    }
+
+    bool empty() { return in.empty() && out.empty(); }
+};
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue* obj = new MyQueue();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->peek();
+ * bool param_4 = obj->empty();
+ */
+
 #include <stack>
 stack<int> in;
 stack<int> out;
-//µ¹Êı×Ö£º
-//´ÓinÕ»ÖĞ£¬°ÑÊı¾İµ¹ÈëoutÕ»
-//1.outÕ»¿ÕÁË²ÅÄÜµ¹Êı¾İ
-//2.Èç¹ûµ¹Êı¾İ£¬inÕ»±ØĞëµ¹Íê
+//å€’æ•°å­—ï¼š
+//ä»inæ ˆä¸­ï¼ŒæŠŠæ•°æ®å€’å…¥outæ ˆ
+//1.outæ ˆç©ºäº†æ‰èƒ½å€’æ•°æ®
+//2.å¦‚æœå€’æ•°æ®ï¼Œinæ ˆå¿…é¡»å€’å®Œ
 void inToOut()
 {
 	if (out.empty())
@@ -22,15 +71,52 @@ void inToOut()
 	}
 }
 
-// ¶ÓÁĞÊµÏÖÕ»
+// é˜Ÿåˆ—å®ç°æ ˆ
+// æµ‹è¯•é“¾æ¥ : https://leetcode.cn/problems/implement-stack-using-queues/
+
+class MyStack {
+    queue<int> que;
+
+public:
+    MyStack() {}
+
+    void push(int x) {
+        que.push(x);
+        int n = que.size();
+        for (int i = 0; i < n - 1; i++) {
+            que.push(que.front());
+            que.pop();
+        }
+    }
+
+    int pop() {
+        int tp = que.front();
+        que.pop();
+        return tp;
+    }
+
+    int top() { return que.front(); }
+
+    bool empty() { return que.empty(); }
+};
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack* obj = new MyStack();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->top();
+ * bool param_4 = obj->empty();
+ */
+
 #include <queue>
 queue<int> q;
 void myStack_push(int value)
 {
-	// ÏÈ½«ĞÂÔªËØÈë¶Ó
+	// å…ˆå°†æ–°å…ƒç´ å…¥é˜Ÿ
 	q.push(value);
 
-	// ½«Ö®Ç°µÄÔªËØÈ«²¿ÒÆµ½ĞÂÔªËØºóÃæ
+	// å°†ä¹‹å‰çš„å…ƒç´ å…¨éƒ¨ç§»åˆ°æ–°å…ƒç´ åé¢
 	for (int i = 0; i < q.size() - 1; i++)
 	{
 		q.push(q.front());
@@ -40,15 +126,53 @@ void myStack_push(int value)
 
 
 
-//×îĞ¡Õ»----ÇóÕ»ÖĞ×îĞ¡ÔªËØ
-//´´½¨Ò»¸öÕ»´æ´¢Ã¿ÖÖÇé¿öÏÂÔ­ÏÈÕ»ÖĞµÄ×îĞ¡Öµ
-//1.µ±Ô­ÏÈÕ»ĞÂ´æÈëµÄÊı¾İ<=min,×îĞ¡Õ»Ñ¹ÈëÕâ¸öĞÂÊı¾İ
-//2.µ±Ô­ÏÈÕ»ĞÂ´æÈëµÄÊı¾İ>min,×îĞ¡Õ»ÒÀ¾ÉÑ¹Èëmin
-//3.µ±Ô­ÏÈÕ»³öÕ»Ê±£¬×îĞ¡Õ»Ò²Í¬²½³öÕ»
-//4.µ±×îĞ¡Õ»Îª¿ÕÊ±£¬ËµÃ÷Ô­ÏÈÕ»Ò²Îª¿Õ
+//æœ€å°æ ˆ----æ±‚æ ˆä¸­æœ€å°å…ƒç´ 
+//åˆ›å»ºä¸€ä¸ªæ ˆå­˜å‚¨æ¯ç§æƒ…å†µä¸‹åŸå…ˆæ ˆä¸­çš„æœ€å°å€¼
+//1.å½“åŸå…ˆæ ˆæ–°å­˜å…¥çš„æ•°æ®<=min,æœ€å°æ ˆå‹å…¥è¿™ä¸ªæ–°æ•°æ®
+//2.å½“åŸå…ˆæ ˆæ–°å­˜å…¥çš„æ•°æ®>min,æœ€å°æ ˆä¾æ—§å‹å…¥min
+//3.å½“åŸå…ˆæ ˆå‡ºæ ˆæ—¶ï¼Œæœ€å°æ ˆä¹ŸåŒæ­¥å‡ºæ ˆ
+//4.å½“æœ€å°æ ˆä¸ºç©ºæ—¶ï¼Œè¯´æ˜åŸå…ˆæ ˆä¹Ÿä¸ºç©º
+// æµ‹è¯•é“¾æ¥ : https://leetcode.cn/problems/min-stack/
+
+class MinStack {
+private:
+    stack<int> data;
+    stack<int> mins;
+
+public:
+    MinStack() {}
+
+    void push(int val) {
+        data.push(val);
+        if(mins.empty()||val<mins.top())
+        mins.push(val);
+        else
+        mins.push(mins.top());
+    }
+
+    void pop() {
+        data.pop();
+        mins.pop();
+    }
+
+    int top() { return data.top(); }
+
+    int getMin() { return mins.top(); }
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(val);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */
+
+
 stack<int> init;
 stack<int> min_;
-int mins;//¼ÇÂ¼Ô­ÏÈÕ»ÖĞ×îĞ¡Öµ
+int mins;//è®°å½•åŸå…ˆæ ˆä¸­æœ€å°å€¼
 void myPush(int x)
 {
 	init.push(x);
