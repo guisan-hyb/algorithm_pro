@@ -7,202 +7,212 @@
 #include <unordered_map>
 using namespace std;
 
-//Ç°×ºÊ÷ÓÖ½Ğ×ÖµäÊ÷£¨trie£©
-//Ã¿¸öÑù±¾ ¶¼´ÓÍ·½áµã¿ªÊ¼ ¸ù¾İ Ç°×º×Ö·û»òÕßÇ°×ºÊı×Ö ½¨³öÒ»¿Å´óÊ÷£¬¾ÍÊÇÇ°×ºÊ÷
-//Ã»ÓĞÂ·¾ÍĞÂ½¨½áµã£»ÒÑ¾­ÓĞÂ·ÁË£¬¾Í¸´ÓÃ½áµã
+//å‰ç¼€æ ‘åˆå«å­—å…¸æ ‘ï¼ˆtrieï¼‰
+//æ¯ä¸ªæ ·æœ¬ éƒ½ä»å¤´ç»“ç‚¹å¼€å§‹ æ ¹æ® å‰ç¼€å­—ç¬¦æˆ–è€…å‰ç¼€æ•°å­— å»ºå‡ºä¸€é¢—å¤§æ ‘ï¼Œå°±æ˜¯å‰ç¼€æ ‘
+//æ²¡æœ‰è·¯å°±æ–°å»ºç»“ç‚¹ï¼›å·²ç»æœ‰è·¯äº†ï¼Œå°±å¤ç”¨ç»“ç‚¹
 
-//Ç°×ºÊ÷µÄÊ¹ÓÃ³¡¾°£ºĞèÒª¸ù¾İÇ°×ºĞÅÏ¢À´²éÑ¯µÄ³¡¾°
-//Ç°×ºÊ÷µÄÓÅµã£º¸ù¾İÇ°×ºĞÅÏ¢Ñ¡ÔñÊ÷ÉÏµÄ·ÖÖ§£¬¿ÉÒÔ½ÚÊ¡´óÁ¿Ê±¼ä
-//Ç°×ºÊ÷µÄÈ±µã£º±È½ÏÀË·Ñ¿Õ¼ä£¬ºÍ×Ü×Ö·ûÊıÁ¿ÓĞ¹Ø£¬×Ö·ûµÄÖÖÀàÓĞ¹Ø
-//Ç°×ºÊ÷µÄ¶¨ÖÆ£ºpass , endµÈĞÅÏ¢
-//×¢£ºÍ¨³£°Ñ×Ö·ûĞÅÏ¢·ÅÔÚÊ÷µÄ±ßÉÏ£¬½áµã¾ÍÎ¬³ÖpĞÅÏ¢¡¢eĞÅÏ¢µÈ
+//å‰ç¼€æ ‘çš„ä½¿ç”¨åœºæ™¯ï¼šéœ€è¦æ ¹æ®å‰ç¼€ä¿¡æ¯æ¥æŸ¥è¯¢çš„åœºæ™¯
+//å‰ç¼€æ ‘çš„ä¼˜ç‚¹ï¼šæ ¹æ®å‰ç¼€ä¿¡æ¯é€‰æ‹©æ ‘ä¸Šçš„åˆ†æ”¯ï¼Œå¯ä»¥èŠ‚çœå¤§é‡æ—¶é—´
+//å‰ç¼€æ ‘çš„ç¼ºç‚¹ï¼šæ¯”è¾ƒæµªè´¹ç©ºé—´ï¼Œå’Œæ€»å­—ç¬¦æ•°é‡æœ‰å…³ï¼Œå­—ç¬¦çš„ç§ç±»æœ‰å…³
+//å‰ç¼€æ ‘çš„å®šåˆ¶ï¼špass , endç­‰ä¿¡æ¯
+//æ³¨ï¼šé€šå¸¸æŠŠå­—ç¬¦ä¿¡æ¯æ”¾åœ¨æ ‘çš„è¾¹ä¸Šï¼Œç»“ç‚¹å°±ç»´æŒpä¿¡æ¯ã€eä¿¡æ¯ç­‰
 
 
-//ÊµÏÖÇ°×ºÊ÷TrieÀà£º
-//1.Trie() ³õÊ¼»¯Ç°×ºÊ÷¶ÔÏó
-//2.void insert(string word) ½«×Ö·û´®word²åÈëÇ°×ºÊ÷ÖĞ
-//3.int search(string word) ·µ»ØÇ°×ºÊ÷ÖĞ×Ö·û´®wordµÄÊµÀı¸öÊı
-//4.int prefixNumber(string prefix) ·µ»ØÇ°×ºÊ÷ÖĞÒÔprefixÎªÇ°×ºµÄ×Ö·û´®¸öÊı
-//5.void delete(string word) ´ÓÇ°×ºÊ÷ÖĞÒÆ³ı×Ö·û´®word
+//å®ç°å‰ç¼€æ ‘Trieç±»ï¼š
+//1.Trie() åˆå§‹åŒ–å‰ç¼€æ ‘å¯¹è±¡
+//2.void insert(string word) å°†å­—ç¬¦ä¸²wordæ’å…¥å‰ç¼€æ ‘ä¸­
+//3.int search(string word) è¿”å›å‰ç¼€æ ‘ä¸­å­—ç¬¦ä¸²wordçš„å®ä¾‹ä¸ªæ•°
+//4.int prefixNumber(string prefix) è¿”å›å‰ç¼€æ ‘ä¸­ä»¥prefixä¸ºå‰ç¼€çš„å­—ç¬¦ä¸²ä¸ªæ•°
+//5.void delete(string word) ä»å‰ç¼€æ ‘ä¸­ç§»é™¤å­—ç¬¦ä¸²word
 
-//ÀàÃèÊöµÄÊµÏÖ·½Ê½£¨¶¯Ì¬½á¹¹£©¡£²»ÍÆ¼ö£¡ËäÈ»×î³£ÓÃ
-class Trie1//Â·ÊÇÊı×éÊµÏÖ£ºÂ·µÄ¿ÉÄÜĞÔ·¶Î§½ÏĞ¡£¬ÓÃ ¹Ì¶¨Êı×é ÊµÏÖÂ·
-{
+//ç±»æè¿°çš„å®ç°æ–¹å¼ï¼ˆåŠ¨æ€ç»“æ„ï¼‰ã€‚ä¸æ¨èï¼è™½ç„¶æœ€å¸¸ç”¨
+
+// è·¯æ˜¯æ•°ç»„å®ç°çš„
+class Trie1 {
 private:
-	class TrieNode
-	{
-	public:
-		int pass;
-		int end;
-		TrieNode* nexts[26];
+    struct TrieNode {
+        int pass;
+        int end;
+        vector<TrieNode*> nexts;
 
-		TrieNode()
-		{
-			pass = 0;
-			end = 0;
-			for (int i = 0; i < 26; i++)
-				nexts[i] = nullptr;
-		}
+        TrieNode() : pass(0), end(0), nexts(26, nullptr) {}
+    };
 
-		~TrieNode()
-		{
-			for (int i = 0; i < 26; i++)
-			{
-				if (nexts[i] != nullptr)
-				{
-					delete nexts[i];
-					nexts[i] = nullptr;
-				}
-			}
-		}
-	};
-	TrieNode* root;//¸ù½áµã
+    TrieNode* root;
 
 public:
-	Trie1()
-	{
-		root = new TrieNode();
-	}
+    Trie1() {
+        root = new TrieNode();
+    }
 
-	~Trie1()
-	{
-		delete root;
-	}
+    void insert(string word) {
+        TrieNode* node = root;
+        node->pass++;
+        for (int i = 0; i < word.length(); i++) {
+            int path = word[i] - 'a'; // ç”±å­—ç¬¦ï¼Œå¯¹åº”æˆèµ°å‘å“ªæ¡è·¯
+            if (node->nexts[path] == nullptr) {
+                node->nexts[path] = new TrieNode();
+            }
+            node = node->nexts[path];
+            node->pass++;
+        }
+        node->end++;
+    }
 
-	void insert(string word)
-	{
-		TrieNode* node = root;
-		node->pass++;
-		for (int i = 0; i < word.size(); i++)//´Ó×óÍùÓÒ±éÀú×Ö·û´®ÖĞµÄÃ¿¸ö×Ö·û
-		{
-			int path = word[i] - 'a';//ÓÉ×Ö·û£¬¶ÔÓ¦×ßÄÄÌõÂ·
-			if (node->nexts[path] == nullptr)
-				node->nexts[path] = new TrieNode();
-			node = node->nexts[path];
-			node->pass++;
-		}
-		node->end++;
-	}
+    // å¦‚æœä¹‹å‰wordæ’å…¥è¿‡å‰ç¼€æ ‘ï¼Œé‚£ä¹ˆæ­¤æ—¶åˆ æ‰ä¸€æ¬¡
+    // å¦‚æœä¹‹å‰wordæ²¡æœ‰æ’å…¥è¿‡å‰ç¼€æ ‘ï¼Œé‚£ä¹ˆä»€ä¹ˆä¹Ÿä¸åš
+    void erase(string word) {
+        if (countWordsEqualTo(word) > 0) {
+            TrieNode* node = root;
+            node->pass--;
+            for (int i = 0; i < word.length(); i++) {
+                int path = word[i] - 'a';
+                if (--node->nexts[path]->pass == 0) {
+                    node->nexts[path] = nullptr;
+                    return;
+                }
+                node = node->nexts[path];
+            }
+            node->end--;
+        }
+    }
 
-	void erase(string word)
-	{
-		if (countWordsEqualTo(word) > 0)//Ç°×ºÊ÷ÖĞ´æÓĞ¸Ã×Ö·û´®
-		{
-			TrieNode* node = root;
-			node->pass--;
-			stack<pair<TrieNode*, int>> s;
-			for (int i = 0; i < word.size(); i++)
-			{
-				int path = word[i] - 'a';
-				if (--node->nexts[path]->pass == 0)
-				{
-					s.push(make_pair(node, path));
-				}
+    // æŸ¥è¯¢å‰ç¼€æ ‘é‡Œï¼Œwordå•è¯å‡ºç°äº†å‡ æ¬¡
+    int countWordsEqualTo(string word) {
+        TrieNode* node = root;
+        for (int i = 0; i < word.length(); i++) {
+            int path = word[i] - 'a';
+            if (node->nexts[path] == nullptr) {
+                return 0;
+            }
+            node = node->nexts[path];
+        }
+        return node->end;
+    }
 
-				node = node->nexts[path];
-			}
-			node->end--;
-
-			while (!s.empty())
-			{
-				// Ö±½Ó»ñÈ¡²¢É¾³ıÕ»¶¥ÔªËØ
-				TrieNode* parent = s.top().first;
-				int path = s.top().second;
-				s.pop();
-
-				if (parent->nexts[path] != nullptr)
-				{
-					delete parent->nexts[path];
-					parent->nexts[path] = nullptr;
-				}
-			}
-		}
-	}
-
-	int countWordsEqualTo(string word)// ²éÑ¯Ç°×ºÊ÷Àï£¬wordµ¥´Ê³öÏÖÁË¼¸´Î
-	{
-		TrieNode* node = root;
-		for (int i = 0; i < word.size(); i++)
-		{
-			int path = word[i] - 'a';
-			if (node->nexts[path] == nullptr)
-				return 0;
-			node = node->nexts[path];
-		}
-		return node->end;
-	}
-
-	int countWordsStartingWith(string pre)// ²éÑ¯Ç°×ºÊ÷Àï£¬ÓĞ¶àÉÙµ¥´ÊÒÔpre×öÇ°×º
-	{
-		TrieNode* node = root;
-		for (int i = 0; i < pre.size(); i++)
-		{
-			int path = pre[i] - 'a';
-			if (node->nexts[path] == nullptr)
-				return 0;
-			node = node->nexts[path];
-		}
-		return node->pass;
-	}
-};
-
-class Trie2//Â·ÊÇ¹şÏ£±íÊµÏÖ£ºÂ·µÄ¿ÉÄÜĞÔ·¶Î§½Ï´ó£¬ÓÃ ¹şÏ£±í ÊµÏÖÂ·
-{
-private:
-	class TrieNode
-	{
-	public:
-		int pass;
-		int end;
-		unordered_map<int, TrieNode*> ump;
-
-		TrieNode()
-		{
-			pass = 0;
-			end = 0;
-		}
-
-	};
-	TrieNode* root;
-
-public:
-	//...ÓëTrie1ÊµÏÖÀàËÆ,Ö»²»¹ı°ÑÊı×é»»³É±í£¬ÄÜ´æ´¢µÄ×Ö·û¸ü¶à
+    // æŸ¥è¯¢å‰ç¼€æ ‘é‡Œï¼Œæœ‰å¤šå°‘å•è¯ä»¥preåšå‰ç¼€
+    int countWordsStartingWith(string pre) {
+        TrieNode* node = root;
+        for (int i = 0; i < pre.length(); i++) {
+            int path = pre[i] - 'a';
+            if (node->nexts[path] == nullptr) {
+                return 0;
+            }
+            node = node->nexts[path];
+        }
+        return node->pass;
+    }
 };
 
 
+// è·¯æ˜¯å“ˆå¸Œè¡¨å®ç°çš„
+class Trie2 {
+private:
+    struct TrieNode {
+        int pass;
+        int end;
+        unordered_map<int, TrieNode*> nexts;
+
+        TrieNode() : pass(0), end(0) {}
+    };
+
+    TrieNode* root;
+
+public:
+    Trie2() {
+        root = new TrieNode();
+    }
+
+    void insert(string word) {
+        TrieNode* node = root;
+        node->pass++;
+        for (int i = 0; i < word.length(); i++) {
+            int path = word[i]; 
+            if (!node->nexts.count(path)) {
+                node->nexts[path] = new TrieNode();
+            }
+            node = node->nexts[path];
+            node->pass++;
+        }
+        node->end++;
+    }
+
+    void erase(string word) {
+        if (countWordsEqualTo(word) > 0) {
+            TrieNode* node = root;
+            node->pass--;
+            for (int i = 0; i < word.length(); i++) {
+                int path = word[i];
+                TrieNode* next = node->nexts[path];
+                if (--next->pass == 0) {
+                    node->nexts.erase(path);
+                    return;
+                }
+                node = next;
+            }
+            node->end--;
+        }
+    }
+
+    int countWordsEqualTo(string word) {
+        TrieNode* node = root;
+        for (int i = 0; i < word.length(); i++) {
+            int path = word[i];
+            if (!node->nexts.count(path)) {
+                return 0;
+            }
+            node = node->nexts[path];
+        }
+        return node->end;
+    }
+
+    int countWordsStartingWith(string pre) {
+        TrieNode* node = root;
+        for (int i = 0; i < pre.length(); i++) {
+            int path = pre[i];
+            if (!node->nexts.count(path)) {
+                return 0;
+            }
+            node = node->nexts[path];
+        }
+        return node->pass;
+    }
+};
 
 
-//¾²Ì¬Êı×éµÄÊµÏÖ·½Ê½¡£ÍÆ¼ö£¡²»½ö±ÊÊÔ£¬¾ÍÁ¬±ÈÈüÒ²ÄÜ±£Ö¤Ê¹ÓÃ
-// ²âÊÔÁ´½Ó£ºhttps://www.nowcoder.com/practice/7f8a8553ddbf4eaab749ec988726702b
-//1.Ò»ÇĞ¶¼ÊÇ¾²Ì¬Êı×éÀ´ÊµÏÖ£¬Ìá½»×¼±¸ºÃ¹»ÓÃµÄ¿Õ¼ä
-//2.Èç¹ûÂ·µÄ¿ÉÄÜĞÔ·¶Î§½Ï´ó£¬¾ÍÓÃÃ¿Ò»Î»µÄĞÅÏ¢½¨Ê÷¡£-->>ÔÚ Ç°×ºÊ÷µÄÌâÄ¿ ÓĞÕ¹Ê¾
+
+
+//é™æ€æ•°ç»„çš„å®ç°æ–¹å¼ã€‚æ¨èï¼ä¸ä»…ç¬”è¯•ï¼Œå°±è¿æ¯”èµ›ä¹Ÿèƒ½ä¿è¯ä½¿ç”¨
+// æµ‹è¯•é“¾æ¥ï¼šhttps://www.nowcoder.com/practice/7f8a8553ddbf4eaab749ec988726702b
+//1.ä¸€åˆ‡éƒ½æ˜¯é™æ€æ•°ç»„æ¥å®ç°ï¼Œæäº¤å‡†å¤‡å¥½å¤Ÿç”¨çš„ç©ºé—´
+//2.å¦‚æœè·¯çš„å¯èƒ½æ€§èŒƒå›´è¾ƒå¤§ï¼Œå°±ç”¨æ¯ä¸€ä½çš„ä¿¡æ¯å»ºæ ‘ã€‚-->>åœ¨ å‰ç¼€æ ‘çš„é¢˜ç›® æœ‰å±•ç¤º
 class Trie
 {
-private://ÕâÀïÓÃ¾²Ì¬³ÉÔ±±äÁ¿£¬ËùÓĞTrieÀàµÄÊµÀı¶¼¹²ÏíÍ¬Ò»¸öÊı×é¡¢cntµÈ¡£¶ÔÓÚÕâµÀÌâĞ§ÂÊ¸ß£¬µ«Òª¼ÇµÃ£º1.¾²Ì¬³ÉÔ±±ØĞëÔÚÀàÍâ³õÊ¼»¯  2.clear()
-	static const int MAXSIZE = 200005;//×÷ÓÃÓòÎªÀàµÄ³£Á¿
-	static int cnt;//µ±Ç°½ÚµãÊıÁ¿£¬¼ÇÂ¼À´µ½ÁËµÚ¼¸²ã: ¶şÎ¬Êı×éTreeµÄµÚcntĞĞ
+private://è¿™é‡Œç”¨é™æ€æˆå‘˜å˜é‡ï¼Œæ‰€æœ‰Trieç±»çš„å®ä¾‹éƒ½å…±äº«åŒä¸€ä¸ªæ•°ç»„ã€cntç­‰ã€‚å¯¹äºè¿™é“é¢˜æ•ˆç‡é«˜ï¼Œä½†è¦è®°å¾—ï¼š1.é™æ€æˆå‘˜å¿…é¡»åœ¨ç±»å¤–åˆå§‹åŒ–  2.clear()
+	static const int MAXSIZE = 200005;//ä½œç”¨åŸŸä¸ºç±»çš„å¸¸é‡
+	static int cnt;//å½“å‰èŠ‚ç‚¹æ•°é‡ï¼Œè®°å½•æ¥åˆ°äº†ç¬¬å‡ å±‚: äºŒç»´æ•°ç»„Treeçš„ç¬¬cntè¡Œ
 	static int Tree[MAXSIZE][26];
-	static int pass[MAXSIZE];// ¾­¹ı¸Ã½ÚµãµÄµ¥´ÊÊıÁ¿
-	static int end[MAXSIZE];// ÒÔ¸Ã½Úµã½áÎ²µÄµ¥´ÊÊıÁ¿
+	static int pass[MAXSIZE];// ç»è¿‡è¯¥èŠ‚ç‚¹çš„å•è¯æ•°é‡
+	static int end[MAXSIZE];// ä»¥è¯¥èŠ‚ç‚¹ç»“å°¾çš„å•è¯æ•°é‡
 	
 public:
 	Trie()
 	{
-		cnt = 1;//µÚ0²ãÖÃ¿Õ£¬Ä¬ÈÏ´ÓµÚ1²ã¿ªÊ¼
+		cnt = 1;//ç¬¬0å±‚ç½®ç©ºï¼Œé»˜è®¤ä»ç¬¬1å±‚å¼€å§‹
 	}
 
 	void insert(string word)
 	{
-		int cur = 1;//´Ó¸ù½áµã¿ªÊ¼£¬Ö¸Ïòµ±Ç°²ãÊı
+		int cur = 1;//ä»æ ¹ç»“ç‚¹å¼€å§‹ï¼ŒæŒ‡å‘å½“å‰å±‚æ•°
 		pass[cur]++;
 		for (int i = 0; i < word.size(); i++)
 		{
 			int path = word[i] - 'a';
 			if (Tree[cur][path] == 0)
 			{
-				Tree[cur][path] = ++cnt;//´´½¨ĞÂ½áµã
+				Tree[cur][path] = ++cnt;//åˆ›å»ºæ–°ç»“ç‚¹
 			}
-			cur = Tree[cur][path];//ÒÆ¶¯µ½×Ó½áµã
+			cur = Tree[cur][path];//ç§»åŠ¨åˆ°å­ç»“ç‚¹
 			pass[cur]++;
 		}
 		end[cur]++;
@@ -236,10 +246,10 @@ public:
 
 	void erase (string word)
 	{
-		if (search(word) == 0)//Ç°×ºÊ÷ÖĞÃ»ÓĞ¸Ã×Ö·û´®
+		if (search(word) == 0)//å‰ç¼€æ ‘ä¸­æ²¡æœ‰è¯¥å­—ç¬¦ä¸²
 			return;
 
-		//Ç°×ºÊ÷ÖĞÓĞ¸Ã×Ö·û´®
+		//å‰ç¼€æ ‘ä¸­æœ‰è¯¥å­—ç¬¦ä¸²
 		int cur = 1;
 		pass[cur]--;
 		for (int i = 0; i < word.size(); i++)
@@ -247,7 +257,7 @@ public:
 			int path = word[i] - 'a';
 			if (--pass[Tree[cur][path]] == 0)
 			{
-				Tree[cur][path] = 0;//µ÷Õû¸¸½áµã
+				Tree[cur][path] = 0;//è°ƒæ•´çˆ¶ç»“ç‚¹
 				return;
 			}
 			cur = Tree[cur][path];
@@ -271,7 +281,7 @@ public:
 
 };
 
-// ¾²Ì¬³ÉÔ±³õÊ¼»¯ ( ¾²Ì¬³ÉÔ±±ØĞëÔÚÀàÍâ³õÊ¼»¯ )
+// é™æ€æˆå‘˜åˆå§‹åŒ– ( é™æ€æˆå‘˜å¿…é¡»åœ¨ç±»å¤–åˆå§‹åŒ– )
 int Trie::cnt = 1;
 int Trie::Tree[MAXSIZE][26] = { 0 };
 int Trie::pass[MAXSIZE] = { 0 };
@@ -306,5 +316,5 @@ int main() {
 	trie.clear();
 	return 0;
 }
-//¹ØÓÚÊ¹ÓÃ¾²Ì¬Êı×éÊµÏÖ×Ö·ûÖÖÀàºÜ¶àµÄÇé¿ö£¬¿ÉÒÔ°Ñpath°´Î»´òÉ¢£¬ÒÀ´ÎÍùÏÂÔú
-//´ËÄÚÈİÔÚ Ç°×ºÊ÷Ïà¹ØÌâÄ¿ ÖĞ¿É¼û
+//å…³äºä½¿ç”¨é™æ€æ•°ç»„å®ç°å­—ç¬¦ç§ç±»å¾ˆå¤šçš„æƒ…å†µï¼Œå¯ä»¥æŠŠpathæŒ‰ä½æ‰“æ•£ï¼Œä¾æ¬¡å¾€ä¸‹æ‰
+//æ­¤å†…å®¹åœ¨ å‰ç¼€æ ‘ç›¸å…³é¢˜ç›® ä¸­å¯è§
