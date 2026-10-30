@@ -1,6 +1,15 @@
 // 二叉树高频题模板：层序 / 锯齿 / 宽度 / 深度 / 完全二叉树 / 序列化 / 构造 / LCA / BST / 打家劫舍
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <climits>
+#include <iostream>
+#include <list>
+#include <queue>
+#include <stack>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 using namespace std;
 
 struct TreeNode {
@@ -230,11 +239,10 @@ int main() {
     TreeNode* root = new TreeNode(1,
         new TreeNode(2, new TreeNode(4), new TreeNode(5)),
         new TreeNode(3));
-    printf("maxDepth=%d minDepth=%d width=%d complete=%d\n",
-           maxDepth(root), minDepth(root), widthOfBinaryTree(root), (int)isCompleteTree(root));
-    printf("countNodes=%d rob=%d\n", countNodes(root), rob(root));
+    std::cout << "maxDepth=" << maxDepth(root) << " minDepth=" << minDepth(root) << " width=" << widthOfBinaryTree(root) << " complete=" << (int)isCompleteTree(root) << "\n";
+    std::cout << "countNodes=" << countNodes(root) << " rob=" << rob(root) << "\n";
     Codec codec;
     string data = codec.serialize(root);
-    printf("serialize: %s\n", data.c_str());
+    std::cout << "serialize: " << data << "\n";
     return 0;
 }

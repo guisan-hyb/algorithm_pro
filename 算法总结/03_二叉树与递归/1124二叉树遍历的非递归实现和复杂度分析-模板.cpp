@@ -1,7 +1,10 @@
 // 二叉树非递归遍历模板：前序 / 中序 / 后序
 // 时间 O(n)，额外空间 O(h)（h 为树高）
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <stack>
+#include <vector>
 using namespace std;
 
 struct TreeNode {
@@ -91,8 +94,8 @@ int main() {
         new TreeNode(2, new TreeNode(4), nullptr),
         new TreeNode(3));
     auto print = [](const vector<int>& v) {
-        for (int x : v) printf("%d ", x);
-        puts("");
+        for (int x : v) std::cout << x << " ";
+        std::cout << "\n";
     };
     print(preorder(root));            // 1 2 4 3
     print(inorder(root));             // 4 2 1 3

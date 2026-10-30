@@ -1,7 +1,10 @@
 // 嵌套/括号问题通用模板：递归下降 V3（&i + if...break + 末尾 flush）
 // 三题示例：表达式求值 / 字符串解码 / 分子式原子计数
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <iostream>
+#include <map>
+#include <string>
+#include <vector>
 using namespace std;
 
 // ============================================================
@@ -159,12 +162,11 @@ bool isValidWithStar(const string& s) {            // 含 '*' 的贪心区间
 
 int main() {
     Calculator calc;
-    printf("2*(3+4)-5 = %d\n", calc.calculate("2*(3+4)-5"));
+    std::cout << "2*(3+4)-5 = " << calc.calculate("2*(3+4)-5") << "\n";
     Decode dec;
-    printf("3[a2[c]] = %s\n", dec.decode("3[a2[c]]").c_str());
+    std::cout << "3[a2[c]] = " << dec.decode("3[a2[c]]") << "\n";
     Atoms at;
-    printf("K4(ON(SO3)2)2 = %s\n", at.count("K4(ON(SO3)2)2").c_str());
-    printf("valid(*) = %d, valid(no wildcard) = %d\n",
-           (int)isValidWithStar("(*)"), (int)isValidNoWildcard("(())"));
+    std::cout << "K4(ON(SO3)2)2 = " << at.count("K4(ON(SO3)2)2") << "\n";
+    std::cout << "valid(*) = " << (int)isValidWithStar("(*)") << ", valid(no wildcard) = " << (int)isValidNoWildcard("(())") << "\n";
     return 0;
 }

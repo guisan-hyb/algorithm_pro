@@ -76,63 +76,124 @@ post_l = post[0, lsize)       post_r = post[lsize, end-1)
 5. 前序+后序必须单独处理 `size() == 1` 的情况，否则会越界或无限递归；
 6. 空数组要返回 `nullptr`，这是唯一的 base case 之一。
 
-## 模板（默写骨架）
+## 模板（可直接编译运行）
 
 ```cpp
-#include <bits/stdc++.h>
+// 三选二构造二叉树：每次复制左右子树区间，优先保证写法正确
+#define _CRT_SECURE_NO_WARNINGS
+#include <algorithm>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 struct TreeNode {
     int val;
-    TreeNode *left, *right;
-    TreeNode(int v = 0, TreeNode* l = nullptr, TreeNode* r = nullptr) : val(v), left(l), right(r) {}
+    TreeNode* left;
+    TreeNode* right;
+
+    explicit TreeNode(int value = 0, TreeNode* leftChild = nullptr,
+                      TreeNode* rightChild = nullptr)
+        : val(value), left(leftChild), right(rightChild) {}
 };
 
-// ---------- 1. 前序 + 中序 ----------
-TreeNode* buildFromPreIn(vector<int> pre, vector<int> in) {
-    if (pre.empty()) return nullptr;
-    int lsize = find(in.begin(), in.end(), pre[0]) - in.begin();
+TreeNode* buildFromPreorderInorder(const vector<int>& preorder,
+                                   const vector<int>& inorder) {
+    if (preorder.empty()) {
+        return nullptr;
+    }
 
-    vector<int> pre_l(pre.begin() + 1, pre.begin() + 1 + lsize);
-    vector<int> pre_r(pre.begin() + 1 + lsize, pre.end());
-    vector<int> in_l(in.begin(), in.begin() + lsize);
-    vector<int> in_r(in.begin() + lsize + 1, in.end());
+    int rootValue = preorder.front();
+    auto rootInorder = find(inorder.begin(), inorder.end(), rootValue);
+    int leftSize = static_cast<int>(rootInorder - inorder.begin());
 
-    TreeNode* l = buildFromPreIn(pre_l, in_l);
-    TreeNode* r = buildFromPreIn(pre_r, in_r);
-    return new TreeNode(pre[0], l, r);
+    vector<int> leftPreorder(preorder.begin() + 1,
+                             preorder.begin() + 1 + leftSize);
+    vector<int> rightPreorder(preorder.begin() + 1 + leftSize,
+                              preorder.end());
+    vector<int> leftInorder(inorder.begin(), inorder.begin() + leftSize);
+    vector<int> rightInorder(inorder.begin() + leftSize + 1, inorder.end());
+
+    return new TreeNode(
+        rootValue,
+        buildFromPreorderInorder(leftPreorder, leftInorder),
+        buildFromPreorderInorder(rightPreorder, rightInorder));
 }
 
-// ---------- 2. 中序 + 后序 ----------
-TreeNode* buildFromInPost(vector<int> in, vector<int> post) {
-    if (post.empty()) return nullptr;
-    int lsize = find(in.begin(), in.end(), post.back()) - in.begin();
+TreeNode* buildFromInorderPostorder(const vector<int>& inorder,
+                                    const vector<int>& postorder) {
+    if (postorder.empty()) {
+        return nullptr;
+    }
 
-    vector<int> post_l(post.begin(), post.begin() + lsize);
-    vector<int> post_r(post.begin() + lsize, post.end() - 1);
-    vector<int> in_l(in.begin(), in.begin() + lsize);
-    vector<int> in_r(in.begin() + lsize + 1, in.end());
+    int rootValue = postorder.back();
+    auto rootInorder = find(inorder.begin(), inorder.end(), rootValue);
+    int leftSize = static_cast<int>(rootInorder - inorder.begin());
 
-    TreeNode* l = buildFromInPost(in_l, post_l);
-    TreeNode* r = buildFromInPost(in_r, post_r);
-    return new TreeNode(post.back(), l, r);
+    vector<int> leftInorder(inorder.begin(), inorder.begin() + leftSize);
+    vector<int> rightInorder(inorder.begin() + leftSize + 1, inorder.end());
+    vector<int> leftPostorder(postorder.begin(), postorder.begin() + leftSize);
+    vector<int> rightPostorder(postorder.begin() + leftSize,
+                               postorder.end() - 1);
+
+    return new TreeNode(
+        rootValue,
+        buildFromInorderPostorder(leftInorder, leftPostorder),
+        buildFromInorderPostorder(rightInorder, rightPostorder));
 }
 
-// ---------- 3. 前序 + 后序（规定 pre[1] 属于左子树） ----------
-TreeNode* buildFromPrePost(vector<int> pre, vector<int> post) {
-    if (pre.empty()) return nullptr;
-    if (pre.size() == 1) return new TreeNode(pre[0]);
+TreeNode* buildFromPreorderPostorder(const vector<int>& preorder,
+                                     const vector<int>& postorder) {
+    if (preorder.empty()) {
+        return nullptr;
+    }
+    if (preorder.size() == 1) {
+        return new TreeNode(preorder.front());
+    }
 
-    int lsize = find(post.begin(), post.end(), pre[1]) - post.begin() + 1;
+    auto leftRootInPostorder =
+        find(postorder.begin(), postorder.end(), preorder[1]);
+    int leftSize = static_cast<int>(leftRootInPostorder - postorder.begin()) + 1;
 
-    vector<int> pre_l(pre.begin() + 1, pre.begin() + lsize + 1);
-    vector<int> pre_r(pre.begin() + lsize + 1, pre.end());
-    vector<int> post_l(post.begin(), post.begin() + lsize);
-    vector<int> post_r(post.begin() + lsize, post.end() - 1);
+    vector<int> leftPreorder(preorder.begin() + 1,
+                             preorder.begin() + 1 + leftSize);
+    vector<int> rightPreorder(preorder.begin() + 1 + leftSize,
+                              preorder.end());
+    vector<int> leftPostorder(postorder.begin(), postorder.begin() + leftSize);
+    vector<int> rightPostorder(postorder.begin() + leftSize,
+                               postorder.end() - 1);
 
-    TreeNode* l = buildFromPrePost(pre_l, post_l);
-    TreeNode* r = buildFromPrePost(pre_r, post_r);
-    return new TreeNode(pre[0], l, r);
+    return new TreeNode(
+        preorder.front(),
+        buildFromPreorderPostorder(leftPreorder, leftPostorder),
+        buildFromPreorderPostorder(rightPreorder, rightPostorder));
+}
+
+void printPostorder(TreeNode* root) {
+    if (root == nullptr) {
+        return;
+    }
+    printPostorder(root->left);
+    printPostorder(root->right);
+    cout << root->val << " ";
+}
+
+int main() {
+    TreeNode* root1 =
+        buildFromPreorderInorder({3, 9, 20, 15, 7}, {9, 3, 15, 20, 7});
+    printPostorder(root1);
+    cout << "\n";
+
+    TreeNode* root2 =
+        buildFromInorderPostorder({9, 3, 15, 20, 7}, {9, 15, 7, 20, 3});
+    printPostorder(root2);
+    cout << "\n";
+
+    TreeNode* root3 =
+        buildFromPreorderPostorder({1, 2, 4, 5, 3, 6, 7},
+                                   {4, 5, 2, 6, 7, 3, 1});
+    printPostorder(root3);
+    cout << "\n";
+    return 0;
 }
 ```
 
@@ -145,3 +206,38 @@ LeetCode 105 前序与中序构造二叉树、106 中序与后序构造二叉树
 - O(n) 的哈希表 + 下标版本见 `1210二叉树高频题目-不含树型dp`（题目七）；
 - 遍历序列的生成见 `1124二叉树遍历的非递归实现和复杂度分析`；
 - 为什么中序序列化不唯一、为什么三种组合只有两种唯一，本质是"根的位置能否把区间切开"。
+
+## 专题深化：为什么成立
+
+前序的第一个元素、后序的最后一个元素确定根；中序中根的位置把左右子树分开。用区间递归即可证明唯一划分。前序+后序通常不能唯一确定二叉树，因为无法区分只有一个孩子时它在左侧还是右侧。
+
+## 专题深化：手算与边界
+
+前序 `[3,9,20,15,7]`、中序 `[9,3,15,20,7]`：根 3，左中序 `[9]`，右 `[15,20,7]`，递归得到 `9` 与 `20(15,7)`。
+
+### 对照与取舍
+
+O(n²) 每次扫描中序找根；哈希表存中序下标降 O(n)。前序+后序可构造但不唯一，需要额外约束。
+
+### 易错点与反例
+
+1. 空区间返回空节点
+2. 左右子树长度必须一致
+3. 重复值时需明确匹配规则
+4. 前序+后序不能唯一确定左右单孩子
+
+## 专题深化：进阶拓展
+
+用迭代+栈也可从遍历序列构造；表达式树可由前序/后序加运算符信息构造。
+
+## 专题深化：面试追问
+
+1. 为什么前序+中序唯一？
+2. 前序+后序为什么会不唯一？
+3. 哈希下标如何把复杂度降为 O(n)？
+
+## 专题深化：自测（闭卷）
+
+1. 手构三节点树
+2. 找前序+后序不唯一例子
+3. 校验区间长度

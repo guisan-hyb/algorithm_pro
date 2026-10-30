@@ -1,6 +1,10 @@
 // 经典递归模板合集：子集 / 组合 / 全排列 / 栈递归 / 汉诺塔
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <stack>
+#include <unordered_set>
+#include <vector>
 using namespace std;
 
 vector<vector<int>> ans;
@@ -70,9 +74,9 @@ void reverseStack(stack<int>& s) {
 
 // ================= 6. 汉诺塔（2^n - 1 步） =================
 void hanoi(int n, char from, char to, char other) {
-    if (n == 1) { printf("盘 1: %c -> %c\n", from, to); return; }
+    if (n == 1) { std::cout << "盘 1: " << from << " -> " << to << "\n"; return; }
     hanoi(n - 1, from, other, to);
-    printf("盘 %d: %c -> %c\n", n, from, to);
+    std::cout << "盘 " << n << ": " << from << " -> " << to << "\n";
     hanoi(n - 1, other, to, from);
 }
 
@@ -81,17 +85,17 @@ int main() {
     sort(a.begin(), a.end());
     ans.clear(); path.clear();
     combinations(a, 0);
-    printf("组合(去重)共 %d 个\n", (int)ans.size());
+    std::cout << "组合(去重)共 " << (int)ans.size() << " 个\n";
 
     vector<int> b = {1, 1, 2};
     ans.clear();
     permuteUnique(b, 0);
-    printf("排列(去重)共 %d 个\n", (int)ans.size());
+    std::cout << "排列(去重)共 " << (int)ans.size() << " 个\n";
 
     stack<int> s;
     for (int x : {1, 2, 3, 4}) s.push(x);
     reverseStack(s);
-    printf("逆序后的栈顶 = %d\n", s.top());
+    std::cout << "逆序后的栈顶 = " << s.top() << "\n";
 
     hanoi(3, 'A', 'C', 'B');
     return 0;

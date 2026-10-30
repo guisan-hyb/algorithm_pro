@@ -1,6 +1,9 @@
 // N 皇后模板：路径数组法 + 位运算法（位运算版常数更小）
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <cstdlib>
+#include <iomanip>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 // ================= 法一：路径数组（好懂） =================
@@ -54,7 +57,6 @@ public:
 
 int main() {
     for (int n = 1; n <= 10; n++)
-        printf("n=%2d  数组法=%d  位运算法=%d\n",
-               n, SolutionArray().totalNQueens(n), SolutionBit().totalNQueens(n));
+        std::cout << "n=" << std::setw(2) << n << "  数组法=" << SolutionArray().totalNQueens(n) << "  位运算法=" << SolutionBit().totalNQueens(n) << "\n";
     return 0;
 }

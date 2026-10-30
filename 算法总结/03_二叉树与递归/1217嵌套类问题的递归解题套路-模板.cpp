@@ -1,7 +1,10 @@
 // 嵌套类问题模板：递归下降（where 游标版）
 // 三道经典题：字符串解码 / 表达式求值 / 分子式原子计数
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <iostream>
+#include <map>
+#include <string>
+#include <vector>
 using namespace std;
 
 // ================= 1. 字符串解码（LeetCode 394） =================
@@ -119,10 +122,10 @@ public:
 
 int main() {
     DecodeString ds;
-    printf("%s\n", ds.decode("3[a2[c]]").c_str());     // accaccacc
+    std::cout << ds.decode("3[a2[c]]") << "\n";     // accaccacc
     Calc c;
-    printf("%d\n", c.calculate("2*(3+4)-5"));          // 9
+    std::cout << c.calculate("2*(3+4)-5") << "\n";          // 9
     CountAtoms ca;
-    printf("%s\n", ca.count("K4(ON(SO3)2)2").c_str()); // K4N2O14S4
+    std::cout << ca.count("K4(ON(SO3)2)2") << "\n"; // K4N2O14S4
     return 0;
 }
