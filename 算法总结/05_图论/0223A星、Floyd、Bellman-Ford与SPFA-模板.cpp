@@ -1,6 +1,14 @@
 // 最短路四件套模板：A* / Floyd / Bellman-Ford / SPFA 判负环
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <climits>
+#include <cstdlib>
+#include <functional>
+#include <iostream>
+#include <queue>
+#include <utility>
+#include <vector>
 using namespace std;
 
 // ================= 1. A*（网格，四方向，曼哈顿启发） =================
@@ -8,7 +16,8 @@ int aStar(vector<vector<int>>& grid, int sx, int sy, int tx, int ty) {
     int n = (int)grid.size(), m = (int)grid[0].size();
     if (grid[sx][sy] == 0 || grid[tx][ty] == 0) return -1;
     auto h = [&](int x, int y) { return abs(x - tx) + abs(y - ty); };
-    int dx[4] = {1, -1, 0, 0}, dy[4] = {0, 0, 1, -1};
+    const std::array<int, 4> rowOffset = {1, -1, 0, 0};
+    const std::array<int, 4> columnOffset = {0, 0, 1, -1};
     vector<vector<int>> dist(n, vector<int>(m, INT_MAX));
     vector<vector<char>> done(n, vector<char>(m, 0));
     using State = array<int,3>;                     // {f = g + h, x, y}
@@ -22,7 +31,7 @@ int aStar(vector<vector<int>>& grid, int sx, int sy, int tx, int ty) {
         done[x][y] = 1;
         if (x == tx && y == ty) return dist[x][y];
         for (int d = 0; d < 4; d++) {
-            int nx = x + dx[d], ny = y + dy[d];
+            int nx = x + rowOffset[d], ny = y + columnOffset[d];
             if (nx < 0 || nx >= n || ny < 0 || ny >= m || grid[nx][ny] == 0) continue;
             if (dist[x][y] + 1 < dist[nx][ny]) {
                 dist[nx][ny] = dist[x][y] + 1;
@@ -93,22 +102,22 @@ int main() {
         {1,0,1,1},
         {1,1,1,1}
     };
-    printf("A* 最短步数 = %d\n", aStar(grid, 0, 0, 2, 3));   // 5
+    std::cout << "A* 最短步数 = " << aStar(grid, 0, 0, 2, 3) << "\n";   // 5
 
     int n = 3;
     vector<vector<long long>> d(n + 1, vector<long long>(n + 1, LLONG_MAX / 4));
     for (int i = 1; i <= n; i++) d[i][i] = 0;
     d[1][2] = 1; d[2][3] = 2; d[1][3] = 5;
     floyd(d);
-    printf("Floyd d[1][3] = %lld\n", d[1][3]);               // 3
+    std::cout << "Floyd d[1][3] = " << d[1][3] << "\n";               // 3
 
     vector<vector<int>> flights = {{0,1,100},{1,2,100},{0,2,500}};
-    printf("最便宜航班 = %d\n", findCheapestPrice(3, flights, 0, 2, 1));  // 200
+    std::cout << "最便宜航班 = " << findCheapestPrice(3, flights, 0, 2, 1) << "\n";  // 200
 
     vector<vector<pair<int,int>>> adj(4);
     adj[1].push_back({2, -1});
     adj[2].push_back({3, -1});
     adj[3].push_back({1, -1});
-    printf("存在负环 = %d\n", (int)spfaHasNegativeCycle(4, adj));         // 1
+    std::cout << "存在负环 = " << (int)spfaHasNegativeCycle(4, adj) << "\n";         // 1
     return 0;
 }

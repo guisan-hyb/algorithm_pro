@@ -1,6 +1,13 @@
 // 建图 + 拓扑排序模板：邻接表 / 链式前向星 / 拓扑排序 / 字典序最小 / 火星词典
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <functional>
+#include <iostream>
+#include <queue>
+#include <string>
+#include <utility>
+#include <vector>
 using namespace std;
 
 // ================= 1. 邻接表建图（带权） =================
@@ -14,17 +21,22 @@ void buildAdjList(int n, const vector<array<int,3>>& edges, bool directed) {
 }
 
 // ================= 2. 链式前向星 =================
-const int MAXN = 100005, MAXM = 200005;
-int head[MAXN], nxt[MAXM], to[MAXN + MAXM], wt[MAXM], edgeCnt = 1;
+const int MAX_NODE = 100005;
+const int MAX_EDGE = 200005;
+vector<int> head(MAX_NODE, 0);
+vector<int> nextEdge(MAX_EDGE);
+vector<int> to(MAX_EDGE);
+vector<int> weightEdge(MAX_EDGE);
+int edgeCount = 1;
 void addEdge(int u, int v, int w = 0) {
-    to[edgeCnt] = v;            // 这条边指向的点
-    nxt[edgeCnt] = head[u];     // 接在该点上一条边之前
-    wt[edgeCnt] = w;            // 边权
-    head[u] = edgeCnt++;        // 更新该点的最新边
+    to[edgeCount] = v;
+    nextEdge[edgeCount] = head[u];
+    weightEdge[edgeCount] = w;
+    head[u] = edgeCount++;
 }
 void traverse(int u) {
-    for (int ei = head[u]; ei > 0; ei = nxt[ei]) {
-        int v = to[ei];
+    for (int edgeIndex = head[u]; edgeIndex > 0; edgeIndex = nextEdge[edgeIndex]) {
+        int v = to[edgeIndex];
         (void)v;                // 处理边 u -> v
     }
 }
@@ -100,10 +112,10 @@ int main() {
     // 课程表 II：0 -> 1，0 -> 2，1 -> 3
     vector<vector<int>> g(4);
     g[0].push_back(1); g[0].push_back(2); g[1].push_back(3);
-    for (int x : topoSort(4, g)) printf("%d ", x);
-    puts("");
+    for (int x : topoSort(4, g)) std::cout << x << " ";
+    std::cout << "\n";
 
     vector<string> words = {"wrt", "wrf", "er", "ett", "rftt"};
-    printf("火星词典：%s\n", alienOrder(words).c_str());   // wertf
+    std::cout << "火星词典：" << alienOrder(words) << "\n";   // wertf
     return 0;
 }

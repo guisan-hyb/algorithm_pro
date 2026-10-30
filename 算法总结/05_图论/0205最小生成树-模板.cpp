@@ -1,6 +1,12 @@
 // 最小生成树模板：Kruskal + Prim
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <functional>
+#include <iostream>
+#include <queue>
+#include <utility>
+#include <vector>
 using namespace std;
 
 struct DSU {
@@ -61,17 +67,17 @@ int minCostToSupplyWater(int n, vector<int>& wells, vector<vector<int>>& pipes) 
 int main() {
     // 洛谷 P3366 样例：4 个点 5 条边
     vector<array<int,3>> edges = {{1,2,2},{1,3,2},{1,4,3},{2,3,4},{3,4,3}};
-    printf("Kruskal 最小总权 = %lld\n", kruskal(4, edges));      // 7
+    std::cout << "Kruskal 最小总权 = " << kruskal(4, edges) << "\n";      // 7
 
     vector<vector<pair<int,int>>> adj(5);
     for (auto& e : edges) {
         adj[e[0]].push_back({e[1], e[2]});
         adj[e[1]].push_back({e[0], e[2]});
     }
-    printf("Prim 最小总权 = %lld\n", prim(4, adj));              // 7
+    std::cout << "Prim 最小总权 = " << prim(4, adj) << "\n";              // 7
 
     vector<int> wells = {1, 2, 2};
     vector<vector<int>> pipes = {{1,2,1},{2,3,1}};
-    printf("供水最低成本 = %d\n", minCostToSupplyWater(3, wells, pipes));   // 3
+    std::cout << "供水最低成本 = " << minCostToSupplyWater(3, wells, pipes) << "\n";   // 3
     return 0;
 }

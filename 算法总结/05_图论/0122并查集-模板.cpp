@@ -1,6 +1,9 @@
 // 并查集模板：路径压缩 + 小挂大 + 集合计数
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 struct DSU {
@@ -68,10 +71,10 @@ int numSimilarGroups(vector<string>& strs) {
 
 int main() {
     vector<vector<char>> g = {{'1','1','0'},{'0','1','0'},{'0','0','1'}};
-    printf("岛屿数量 = %d\n", numIslands(g));                  // 2
+    std::cout << "岛屿数量 = " << numIslands(g) << "\n";                  // 2
     vector<int> row = {0, 2, 1, 3};
-    printf("情侣牵手最少交换 = %d\n", minSwapsCouples(row));    // 1
+    std::cout << "情侣牵手最少交换 = " << minSwapsCouples(row) << "\n";    // 1
     vector<string> strs = {"tars", "rats", "arts", "star"};
-    printf("相似字符串组 = %d\n", numSimilarGroups(strs));      // 2
+    std::cout << "相似字符串组 = " << numSimilarGroups(strs) << "\n";      // 2
     return 0;
 }

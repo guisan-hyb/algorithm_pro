@@ -1,6 +1,12 @@
 // 双向 BFS + 折半搜索模板
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cstdlib>
+#include <functional>
+#include <iostream>
+#include <string>
+#include <unordered_set>
+#include <vector>
 using namespace std;
 
 // ================= 1. 双向 BFS：单词接龙（最短转换序列长度） =================
@@ -89,12 +95,12 @@ int minAbsDifference(vector<int>& nums, int goal) {
 
 int main() {
     vector<string> dict = {"hot", "dot", "dog", "lot", "log", "cog"};
-    printf("单词接龙最短长度 = %d\n", ladderLength("hit", "cog", dict));   // 5
+    std::cout << "单词接龙最短长度 = " << ladderLength("hit", "cog", dict) << "\n";   // 5
 
     vector<long long> a = {1, 2, 3, 4};
-    printf("体积不超过 5 的方案数 = %lld\n", countWays(a, 5));              // 5
+    std::cout << "体积不超过 5 的方案数 = " << countWays(a, 5) << "\n";              // 5
 
     vector<int> nums = {5, -7, 3, 5};
-    printf("最接近 6 的子序列和差 = %d\n", minAbsDifference(nums, 6));      // 0
+    std::cout << "最接近 6 的子序列和差 = " << minAbsDifference(nums, 6) << "\n";      // 0
     return 0;
 }

@@ -1,6 +1,8 @@
 // 拓扑排序扩展模板：食物链计数 / 并行课程 / 喧闹和富有 / 参加会议的最多员工
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 // ================= 1. 最大食物链计数 =================
@@ -114,13 +116,13 @@ int main() {
     // 食物链：1->2, 2->3
     vector<vector<int>> adj(4);
     adj[1].push_back(2); adj[2].push_back(3);
-    printf("食物链条数 = %lld\n", countFoodChains(3, adj));   // 1
+    std::cout << "食物链条数 = " << countFoodChains(3, adj) << "\n";   // 1
 
     vector<vector<int>> rel = {{1,3},{2,3}};
     vector<int> t = {3, 2, 5};
-    printf("并行课程最少月数 = %d\n", parallelCoursesIII(3, rel, t));  // 8
+    std::cout << "并行课程最少月数 = " << parallelCoursesIII(3, rel, t) << "\n";  // 8
 
     vector<int> fav = {2, 2, 1, 2};
-    printf("会议最多员工数 = %d\n", maximumInvitations(fav));  // 3
+    std::cout << "会议最多员工数 = " << maximumInvitations(fav) << "\n";  // 3
     return 0;
 }

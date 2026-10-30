@@ -1,6 +1,14 @@
 // Dijkstra 模板：普通堆 / 反向索引堆 / 网格变形 / 分层图（钥匙）
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <climits>
+#include <functional>
+#include <iostream>
+#include <queue>
+#include <string>
+#include <utility>
+#include <vector>
 using namespace std;
 
 // ================= 1. 普通堆版 Dijkstra =================
@@ -82,7 +90,8 @@ vector<long long> dijkstraIndexed(int n, vector<vector<pair<int,int>>>& adj, int
 // ================= 3. 分层图：获取所有钥匙的最短路径 =================
 int shortestPathAllKeys(vector<string>& grid) {
     int n = (int)grid.size(), m = (int)grid[0].size();
-    int dx[4] = {1, -1, 0, 0}, dy[4] = {0, 0, 1, -1};
+    const std::array<int, 4> rowOffset = {1, -1, 0, 0};
+    const std::array<int, 4> columnOffset = {0, 0, 1, -1};
     int all = 0, sx = 0, sy = 0;
     for (int i = 0; i < n; i++)
         for (int j = 0; j < m; j++) {
@@ -102,7 +111,7 @@ int shortestPathAllKeys(vector<string>& grid) {
             int x = cur[0], y = cur[1], s = cur[2];
             if (s == all) return level - 1;
             for (int d = 0; d < 4; d++) {
-                int nx = x + dx[d], ny = y + dy[d], ns = s;
+                int nx = x + rowOffset[d], ny = y + columnOffset[d], ns = s;
                 if (nx < 0 || nx >= n || ny < 0 || ny >= m) continue;   // 越界先判
                 char c = grid[nx][ny];
                 if (c == '#') continue;
@@ -126,10 +135,10 @@ int main() {
     adj[0].push_back({2, 5});
     auto d1 = dijkstra(3, adj, 0);
     auto d2 = dijkstraIndexed(3, adj, 0);
-    printf("普通堆: %lld %lld %lld\n", d1[0], d1[1], d1[2]);   // 0 1 3
-    printf("索引堆: %lld %lld %lld\n", d2[0], d2[1], d2[2]);   // 0 1 3
+    std::cout << "普通堆: " << d1[0] << " " << d1[1] << " " << d1[2] << "\n";   // 0 1 3
+    std::cout << "索引堆: " << d2[0] << " " << d2[1] << " " << d2[2] << "\n";   // 0 1 3
 
     vector<string> g = {"@.a.#", "###.#", "b.A.B"};
-    printf("拿齐钥匙最短步数 = %d\n", shortestPathAllKeys(g)); // 8
+    std::cout << "拿齐钥匙最短步数 = " << shortestPathAllKeys(g) << "\n"; // 8
     return 0;
 }

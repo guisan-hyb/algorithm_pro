@@ -1,11 +1,14 @@
 // 洪水填充模板：岛屿数量 / 被围绕的区域 / 最大人工岛 / 打砖块（时光倒流）
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <functional>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-int dx[4] = {1, -1, 0, 0};
-int dy[4] = {0, 0, 1, -1};
-
+std::array<int, 4> dx= {1, -1, 0, 0};
+std::array<int, 4> dy= {0, 0, 1, -1};
 // ================= 1. 通用染色骨架 =================
 void dfsFill(vector<vector<char>>& g, int i, int j, char from, char to) {
     if (i < 0 || i >= (int)g.size() || j < 0 || j >= (int)g[0].size() || g[i][j] != from)
@@ -111,8 +114,8 @@ public:
 
 int main() {
     vector<vector<char>> g = {{'1','1','0'},{'0','1','0'},{'0','0','1'}};
-    printf("岛屿数量 = %d\n", numIslands(g));                 // 2
+    std::cout << "岛屿数量 = " << numIslands(g) << "\n";                 // 2
     vector<vector<int>> grid = {{1,0},{0,1}};
-    printf("最大人工岛 = %d\n", largestIsland(grid));          // 3
+    std::cout << "最大人工岛 = " << largestIsland(grid) << "\n";          // 3
     return 0;
 }

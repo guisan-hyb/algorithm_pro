@@ -1,11 +1,18 @@
 // BFS 扩展模板：多源 BFS / 0-1 BFS / BFS + 小根堆
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <climits>
+#include <deque>
+#include <functional>
+#include <iostream>
+#include <queue>
+#include <utility>
+#include <vector>
 using namespace std;
 
-const int DX[4] = {1, -1, 0, 0};
-const int DY[4] = {0, 0, 1, -1};
-
+const std::array<int, 4> DX= {1, -1, 0, 0};
+const std::array<int, 4> DY= {0, 0, 1, -1};
 // ================= 1. 多源 BFS：地图分析 =================
 int maxDistance(vector<vector<int>> grid) {
     int n = (int)grid.size(), m = (int)grid[0].size(), seas = 0;
@@ -89,12 +96,12 @@ int trapRainWater(vector<vector<int>>& h) {
 
 int main() {
     vector<vector<int>> g = {{1,0,1},{0,0,0},{1,0,1}};
-    printf("地图分析 = %d\n", maxDistance(g));              // 2
+    std::cout << "地图分析 = " << maxDistance(g) << "\n";              // 2
 
     vector<vector<int>> grid = {{0,1,1},{1,1,0},{1,1,0}};
-    printf("最少移除障碍 = %d\n", minimumObstacles(grid));   // 2
+    std::cout << "最少移除障碍 = " << minimumObstacles(grid) << "\n";   // 2
 
     vector<vector<int>> height = {{1,4,3,1,3,2},{3,2,1,3,2,4},{2,3,3,2,3,1}};
-    printf("二维接雨水 = %d\n", trapRainWater(height));      // 4
+    std::cout << "二维接雨水 = " << trapRainWater(height) << "\n";      // 4
     return 0;
 }
