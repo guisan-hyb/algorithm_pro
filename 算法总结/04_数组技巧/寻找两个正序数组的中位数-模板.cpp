@@ -1,6 +1,10 @@
 // 两有序数组中位数模板：二分分割线 O(log min(m,n))
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <climits>
+#include <iomanip>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 // ---------- 写法一：在短数组上二分"切分点下标" ----------
@@ -53,8 +57,8 @@ double findMedianSortedArrays2(vector<int>& nums1, vector<int>& nums2) {
 
 int main() {
     vector<int> a = {1, 3}, b = {2};
-    printf("%.1f\n", findMedianSortedArrays(a, b));    // 2.0
+    std::cout << std::fixed << std::setprecision(1) << findMedianSortedArrays(a, b) << std::defaultfloat << std::setprecision(6) << "\n";    // 2.0
     vector<int> c = {1, 2}, d = {3, 4};
-    printf("%.1f\n", findMedianSortedArrays2(c, d));   // 2.5
+    std::cout << std::fixed << std::setprecision(1) << findMedianSortedArrays2(c, d) << std::defaultfloat << std::setprecision(6) << "\n";   // 2.5
     return 0;
 }

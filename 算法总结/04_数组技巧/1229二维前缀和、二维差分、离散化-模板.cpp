@@ -1,6 +1,8 @@
 // 二维前缀和 + 二维差分 + 离散化模板
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 // ================= 1. 二维前缀和（补 0 行列） =================
@@ -86,15 +88,15 @@ int main() {
         {1, 0, 3, 0, 5}
     };
     MatSum ms(mat);
-    printf("子矩阵和 = %lld\n", ms.query(2, 1, 4, 3));   // 8
+    std::cout << "子矩阵和 = " << ms.query(2, 1, 4, 3) << "\n";   // 8
 
     // 3x3 全 0 矩阵，给 [1..2] x [1..2] 加 1
     diff.assign(5, vector<long long>(5, 0));
     diffAdd(1, 1, 2, 2, 1);
     diffBuild(3, 3);
     for (int i = 1; i <= 3; i++) {
-        for (int j = 1; j <= 3; j++) printf("%lld ", diff[i][j]);
-        puts("");
+        for (int j = 1; j <= 3; j++) std::cout << diff[i][j] << " ";
+        std::cout << "\n";
     }
     return 0;
 }

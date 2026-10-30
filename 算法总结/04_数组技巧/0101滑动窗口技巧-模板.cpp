@@ -1,6 +1,12 @@
 // 滑动窗口模板：最短 / 最长 / 覆盖 / 种类数
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <climits>
+#include <iostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
 using namespace std;
 
 // ---------- 1. 和 >= target 的最短子数组（元素为正） ----------
@@ -61,7 +67,7 @@ int subarraysWithKDistinct(vector<int>& a, int k) {
 int longestSubstring(const string& s, int k) {
     int ans = 0;
     for (int require = 1; require <= 26; require++) {
-        int cnt[256] = {0};
+        std::array<int, 256> cnt= {0};
         for (int l = 0, r = 0, kinds = 0, aim = 0; r < (int)s.size(); r++) {
             if (cnt[(unsigned char)s[r]] == 0) kinds++;
             if (cnt[(unsigned char)s[r]] == k - 1) aim++;
@@ -79,9 +85,9 @@ int longestSubstring(const string& s, int k) {
 
 int main() {
     vector<int> a = {2, 3, 1, 2, 4, 3};
-    printf("最短和>=7 : %d\n", minSubArrayLen(7, a));
-    printf("最长无重复子串 : %d\n", lengthOfLongestSubstring("abcabcbb"));
-    printf("最小覆盖子串 : %s\n", minWindow("ADOBECODEBANC", "ABC").c_str());
-    printf("至少 k 次重复最长子串 : %d\n", longestSubstring("aaabb", 3));
+    std::cout << "最短和>=7 : " << minSubArrayLen(7, a) << "\n";
+    std::cout << "最长无重复子串 : " << lengthOfLongestSubstring("abcabcbb") << "\n";
+    std::cout << "最小覆盖子串 : " << minWindow("ADOBECODEBANC", "ABC") << "\n";
+    std::cout << "至少 k 次重复最长子串 : " << longestSubstring("aaabb", 3) << "\n";
     return 0;
 }

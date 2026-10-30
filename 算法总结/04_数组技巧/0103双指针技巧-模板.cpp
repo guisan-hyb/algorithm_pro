@@ -1,6 +1,9 @@
 // 双指针模板：接雨水 / 盛水容器 / 救生艇 / 寻找重复数 / 缺失第一个正数
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cstdlib>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 // ---------- 1. 接雨水：双指针 O(1) 空间 ----------
@@ -80,10 +83,10 @@ int findRadius(vector<int>& houses, vector<int>& heaters) {
 
 int main() {
     vector<int> h = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
-    printf("接雨水 = %d\n", trap(h));
+    std::cout << "接雨水 = " << trap(h) << "\n";
     vector<int> p = {3, 2, 2, 1};
-    printf("救生艇 = %d\n", numRescueBoats(p, 3));
+    std::cout << "救生艇 = " << numRescueBoats(p, 3) << "\n";
     vector<int> d = {1, 3, 4, 2, 2};
-    printf("重复数 = %d\n", findDuplicate(d));
+    std::cout << "重复数 = " << findDuplicate(d) << "\n";
     return 0;
 }

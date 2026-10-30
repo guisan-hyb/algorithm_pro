@@ -1,6 +1,10 @@
 // 二分答案模板：珂珂吃香蕉 / 分割数组 / 第 K 小距离 / 等位时间 / 旅行时间
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <climits>
+#include <iostream>
+#include <numeric>
+#include <vector>
 using namespace std;
 
 // ================== 通用骨架 ==================
@@ -99,12 +103,12 @@ bool canPass(const vector<int>& h, int n, int energy, int maxH) {
 
 int main() {
     vector<int> piles = {3, 6, 7, 11};
-    printf("珂珂最小速度 = %d\n", minEatingSpeed(piles, 8));      // 4
+    std::cout << "珂珂最小速度 = " << minEatingSpeed(piles, 8) << "\n";      // 4
     vector<int> a = {7, 2, 5, 10, 8};
-    printf("分割最大和最小 = %d\n", splitArray(a, 2));             // 18
+    std::cout << "分割最大和最小 = " << splitArray(a, 2) << "\n";             // 18
     vector<int> d = {1, 3, 1};
-    printf("第 1 小数对距离 = %d\n", smallestDistancePair(d, 1));  // 0
+    std::cout << "第 1 小数对距离 = " << smallestDistancePair(d, 1) << "\n";  // 0
     vector<int> t = {1, 2, 3};
-    printf("完成 5 趟最少时间 = %lld\n", minimumTime(t, 5));       // 3
+    std::cout << "完成 5 趟最少时间 = " << minimumTime(t, 5) << "\n";       // 3
     return 0;
 }

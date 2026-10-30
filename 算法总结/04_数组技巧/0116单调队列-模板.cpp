@@ -1,6 +1,11 @@
 // 单调队列模板：滑动窗口最值 / 和至少为 K 的最短子数组 / 绝对差不超过限制的最长子数组
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <climits>
+#include <deque>
+#include <iostream>
+#include <utility>
+#include <vector>
 using namespace std;
 
 // ================= 1. 滑动窗口最大值（数组模拟双端队列） =================
@@ -73,11 +78,11 @@ int findMaxValueOfEquation(vector<vector<int>>& points, int k) {
 
 int main() {
     vector<int> a = {1, 3, -1, -3, 5, 3, 6, 7};
-    for (int x : maxSlidingWindow(a, 3)) printf("%d ", x);   // 3 3 5 5 6 7
-    puts("");
+    for (int x : maxSlidingWindow(a, 3)) std::cout << x << " ";   // 3 3 5 5 6 7
+    std::cout << "\n";
     vector<int> b = {2, -1, 2};
-    printf("和至少为 3 的最短子数组 = %d\n", shortestSubarray(b, 3));   // 3
+    std::cout << "和至少为 3 的最短子数组 = " << shortestSubarray(b, 3) << "\n";   // 3
     vector<int> c = {8, 2, 4, 7};
-    printf("绝对差 <=4 的最长子数组 = %d\n", longestSubarray(c, 4));    // 2
+    std::cout << "绝对差 <=4 的最长子数组 = " << longestSubarray(c, 4) << "\n";    // 2
     return 0;
 }

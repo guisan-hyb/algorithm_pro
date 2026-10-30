@@ -1,6 +1,10 @@
 // 单调栈模板：左右最近更小 / 柱状图最大矩形 / 每日温度 / 最大宽度坡 / 去重字母
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 // ================= 1. 经典：每个位置左右最近的严格更小位置 =================
@@ -74,8 +78,8 @@ int maxWidthRamp(const vector<int>& a) {
 
 // ================= 5. 去除重复字母，字典序最小 =================
 string removeDuplicateLetters(const string& s) {
-    int cnt[26] = {0};
-    bool inStack[26] = {false};
+    std::array<int, 26> cnt= {0};
+    std::array<bool, 26> inStack= {false};
     for (char c : s) cnt[c - 'a']++;
     string stk;
     for (char c : s) {
@@ -94,12 +98,12 @@ string removeDuplicateLetters(const string& s) {
 
 int main() {
     vector<int> a = {2, 1, 5, 6, 2, 3};
-    printf("柱状图最大矩形 = %d\n", largestRectangleArea(a));   // 10
+    std::cout << "柱状图最大矩形 = " << largestRectangleArea(a) << "\n";   // 10
     vector<int> t = {73, 74, 75, 71, 69, 72, 76, 73};
-    for (int x : dailyTemperatures(t)) printf("%d ", x);        // 1 1 4 2 1 1 0 0
-    puts("");
+    for (int x : dailyTemperatures(t)) std::cout << x << " ";        // 1 1 4 2 1 1 0 0
+    std::cout << "\n";
     vector<int> r = {6, 0, 8, 2, 1, 5};
-    printf("最大宽度坡 = %d\n", maxWidthRamp(r));               // 4
-    printf("去重字母 = %s\n", removeDuplicateLetters("bcabc").c_str());  // abc
+    std::cout << "最大宽度坡 = " << maxWidthRamp(r) << "\n";               // 4
+    std::cout << "去重字母 = " << removeDuplicateLetters("bcabc") << "\n";  // abc
     return 0;
 }

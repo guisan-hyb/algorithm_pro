@@ -1,6 +1,7 @@
 // 旋转数组二分模板：搜索目标值 + 寻找最小值
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 // ---------- 1. 搜索旋转排序数组（元素互不相同） ----------
@@ -46,9 +47,9 @@ int findMinWithDuplicates(vector<int>& nums) {
 
 int main() {
     vector<int> a = {4, 5, 6, 7, 0, 1, 2};
-    printf("search(0) = %d, search(3) = %d\n", search(a, 0), search(a, 3));
-    printf("findMin = %d\n", findMin(a));                       // 0
+    std::cout << "search(0) = " << search(a, 0) << ", search(3) = " << search(a, 3) << "\n";
+    std::cout << "findMin = " << findMin(a) << "\n";                       // 0
     vector<int> b = {2, 2, 2, 0, 1};
-    printf("findMin(含重复) = %d\n", findMinWithDuplicates(b)); // 0
+    std::cout << "findMin(含重复) = " << findMinWithDuplicates(b) << "\n"; // 0
     return 0;
 }

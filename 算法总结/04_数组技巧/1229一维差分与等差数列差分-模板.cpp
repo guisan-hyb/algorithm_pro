@@ -1,11 +1,13 @@
 // 一维差分模板：区间加常数 / 区间加等差数列 / 带 OFFSET 的负下标处理
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <iostream>
 using namespace std;
 
 const int MAXN = 1000005;
-long long diffArr[MAXN + 5];
-long long arithArr[MAXN + 5];
+std::array<long long, MAXN + 5> diffArr = {};
+std::array<long long, MAXN + 5> arithArr = {};
 int n;
 
 // ---------- 1. 区间加常数：O(1) 修改 + O(n) 还原 ----------
@@ -35,24 +37,24 @@ int main() {
     rangeAdd(1, 3, 2);
     rangeAdd(2, 4, 1);
     buildConst();
-    printf("区间加：");
-    for (int i = 1; i <= n; i++) printf("%lld ", diffArr[i]);   // 2 3 3 1 0
-    puts("");
+    std::cout << "区间加：";
+    for (int i = 1; i <= n; i++) std::cout << diffArr[i] << " ";   // 2 3 3 1 0
+    std::cout << "\n";
 
     // ---- 示例 2：区间加等差数列 ----
     // 在 [1,5] 上依次加 1,3,5,7,9（首项 1、末项 9、公差 2）
     rangeAddArith(1, 5, 1, 9, 2);
     buildArith();
-    printf("等差加：");
-    for (int i = 1; i <= n; i++) printf("%lld ", arithArr[i]);  // 1 3 5 7 9
-    puts("");
+    std::cout << "等差加：";
+    for (int i = 1; i <= n; i++) std::cout << arithArr[i] << " ";  // 1 3 5 7 9
+    std::cout << "\n";
 
     // ---- 示例 3：洛谷 P4231 题型（每行输入 l r s e，公差自动算） ----
-    // int m; scanf("%d %d", &n, &m);
-    // memset(arithArr, 0, sizeof(arithArr));
+    // int m; std::cin >> n >> m;
+    // std::fill(arithArr.begin(), arithArr.end(), 0);
     // while (m--) {
     //     long long l, r, s, e;
-    //     scanf("%lld %lld %lld %lld", &l, &r, &s, &e);
+    //     std::cin >> l >> r >> s >> e;
     //     rangeAddArith((int)l, (int)r, s, e, (e - s) / (r - l));
     // }
     // buildArith();

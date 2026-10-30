@@ -1,6 +1,10 @@
 // 前缀信息模板：区间和 / 最长子数组和 / 子数组计数 / 取模最短移除 / 奇偶状态
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
 using namespace std;
 
 // ---------- 1. 前缀和：区间和 O(1) ----------
@@ -81,8 +85,8 @@ int findTheLongestSubstring(const string& s) {
 
 int main() {
     vector<int> a = {1, 2, 3, -2, 5};
-    printf("和等于 3 的最长子数组长度 = %d\n", longestSubarraySumK(a, 3));
-    printf("和等于 3 的子数组个数 = %d\n", countSubarraySumK(a, 3));
-    printf("元音偶数次最长子串长度 = %d\n", findTheLongestSubstring("eleetminicoworoep"));
+    std::cout << "和等于 3 的最长子数组长度 = " << longestSubarraySumK(a, 3) << "\n";
+    std::cout << "和等于 3 的子数组个数 = " << countSubarraySumK(a, 3) << "\n";
+    std::cout << "元音偶数次最长子串长度 = " << findTheLongestSubstring("eleetminicoworoep") << "\n";
     return 0;
 }
