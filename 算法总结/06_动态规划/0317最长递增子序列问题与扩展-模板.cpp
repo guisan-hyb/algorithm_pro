@@ -1,6 +1,9 @@
 // LIS 模板：O(n log n) 二分 + 套娃信封 + K 递增 + 数对链 + 一次修改机会
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <climits>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 // ================= 1. LIS：ends + 二分（O(n log n)） =================
@@ -118,13 +121,13 @@ int longestAfterChange(const vector<int>& nums, int k) {
 
 int main() {
     vector<int> a = {10, 9, 2, 5, 3, 7, 101, 18};
-    printf("LIS(严格) = %d\n", LIS(a, true));                    // 4
-    printf("LIS(不下降) = %d\n", LIS({2,2,2}, false));           // 3
+    std::cout << "LIS(严格) = " << LIS(a, true) << "\n";                    // 4
+    std::cout << "LIS(不下降) = " << LIS({2,2,2}, false) << "\n";           // 3
     vector<vector<int>> env = {{5,4},{6,4},{6,7},{2,3}};
-    printf("套娃信封 = %d\n", maxEnvelopes(env));                // 3
-    printf("K 递增最少修改 = %d\n", kIncreasing({5,4,3,2,1}, 1));// 4
+    std::cout << "套娃信封 = " << maxEnvelopes(env) << "\n";                // 3
+    std::cout << "K 递增最少修改 = " << kIncreasing({5,4,3,2,1}, 1) << "\n";// 4
     vector<vector<int>> pairs = {{1,2},{2,3},{3,4}};
-    printf("最长数对链 = %d\n", findLongestChainGreedy(pairs));  // 2
-    printf("一次修改后最长不下降 = %d\n", longestAfterChange({1,2,3,4,5}, 1)); // 5
+    std::cout << "最长数对链 = " << findLongestChainGreedy(pairs) << "\n";  // 2
+    std::cout << "一次修改后最长不下降 = " << longestAfterChange({1,2,3,4,5}, 1) << "\n"; // 5
     return 0;
 }

@@ -1,6 +1,11 @@
 // 三维动态规划模板：一和零 / 盈利计划 / 骑士概率 / 同余路径计数
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <iomanip>
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 // ================= 1. 一和零（多维费用背包，压缩成二维） =================
@@ -41,7 +46,10 @@ public:
 
 // ================= 3. 骑士在棋盘上的概率（平移 + 逐层迭代） =================
 double knightProbability(int n, int k, int row, int column) {
-    int mv[8][2] = {{-1,-2},{-1,2},{-2,-1},{-2,1},{1,-2},{1,2},{2,-1},{2,1}};
+    const std::vector<std::array<int, 2>> moves = {
+        {-1, -2}, {-1, 2}, {-2, -1}, {-2, 1},
+        {1, -2}, {1, 2}, {2, -1}, {2, 1}
+    };
     vector<vector<vector<double>>> dp(k + 1,
         vector<vector<double>>(n + 4, vector<double>(n + 4, 0)));
     for (int i = 2; i <= n + 1; i++)
@@ -50,7 +58,9 @@ double knightProbability(int n, int k, int row, int column) {
         for (int i = 2; i <= n + 1; i++)
             for (int j = 2; j <= n + 1; j++) {
                 double tmp = 0;
-                for (auto& e : mv) tmp += dp[step - 1][i + e[0]][j + e[1]] / 8;
+                for (const auto& move : moves) {
+                    tmp += dp[step - 1][i + move[0]][j + move[1]] / 8;
+                }
                 dp[step][i][j] = tmp;
             }
     return dp[k][row + 2][column + 2];
@@ -79,15 +89,15 @@ int numberOfPaths(vector<vector<int>>& grid, int k) {
 
 int main() {
     vector<string> strs = {"10", "0001", "111001", "1", "0"};
-    printf("一和零 = %d\n", findMaxForm(strs, 5, 3));            // 4
+    std::cout << "一和零 = " << findMaxForm(strs, 5, 3) << "\n";            // 4
 
     vector<int> g = {2,2,3,3}, p = {2,3,1,3};
     ProfitableSchemes ps;
-    printf("盈利计划 = %d\n", ps.profitableSchemes(5, 3, g, p));  // 3
+    std::cout << "盈利计划 = " << ps.profitableSchemes(5, 3, g, p) << "\n";  // 3
 
-    printf("骑士概率 = %.5f\n", knightProbability(3, 2, 0, 0));   // 0.0625
+    std::cout << "骑士概率 = " << std::fixed << std::setprecision(5) << knightProbability(3, 2, 0, 0) << std::defaultfloat << std::setprecision(6) << "\n";   // 0.0625
 
     vector<vector<int>> grid = {{5,2,4},{3,0,5},{0,7,2}};
-    printf("整除路径数 = %d\n", numberOfPaths(grid, 3));          // 2
+    std::cout << "整除路径数 = " << numberOfPaths(grid, 3) << "\n";          // 2
     return 0;
 }

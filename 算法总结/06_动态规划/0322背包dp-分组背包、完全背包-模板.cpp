@@ -1,6 +1,11 @@
 // 分组背包 / 完全背包 / 正则匹配 / 通配符匹配 / 足量干草模板
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <climits>
+#include <iostream>
+#include <string>
+#include <utility>
+#include <vector>
 using namespace std;
 
 // ================= 1. 分组背包（每组最多取一件） =================
@@ -97,12 +102,11 @@ int minHayCost(int h, const vector<int>& cost, const vector<int>& amount) {
 
 int main() {
     vector<vector<pair<int,int>>> groups = {{{2,3},{3,5}}, {{1,4}}};
-    printf("分组背包 = %d\n", groupKnapsack(4, groups));        // 7
+    std::cout << "分组背包 = " << groupKnapsack(4, groups) << "\n";        // 7
     vector<vector<int>> piles = {{1,100,3},{7,8,9}};
-    printf("取 K 个硬币 = %d\n", maxValueOfCoins(piles, 2));     // 101
-    printf("完全背包 = %lld\n", completeKnapsack(10, {5,3}, {20,12}));  // 40
-    printf("正则 = %d, 通配符 = %d\n",
-           (int)isMatchRegex("aa", "a*"), (int)isMatchWildcard("cb", "?a"));  // 1 0
-    printf("足量干草最小花费 = %d\n", minHayCost(7, {5}, {3}));  // 15
+    std::cout << "取 K 个硬币 = " << maxValueOfCoins(piles, 2) << "\n";     // 101
+    std::cout << "完全背包 = " << completeKnapsack(10, {5,3}, {20,12}) << "\n";  // 40
+    std::cout << "正则 = " << (int)isMatchRegex("aa", "a*") << ", 通配符 = " << (int)isMatchWildcard("cb", "?a") << "\n";  // 1 0
+    std::cout << "足量干草最小花费 = " << minHayCost(7, {5}, {3}) << "\n";  // 15
     return 0;
 }

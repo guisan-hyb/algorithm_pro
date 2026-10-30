@@ -1,6 +1,12 @@
 // 优化枚举模板：股票系列 / DI 序列（前缀和）/ K 个逆序对（滑窗）/ 兼职工作（二分）
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <climits>
+#include <functional>
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 // ================= 1. 一次交易 =================
@@ -127,12 +133,12 @@ int jobScheduling(vector<int> startTime, vector<int> endTime, vector<int> profit
 }
 
 int main() {
-    printf("一次交易 = %d\n", maxProfitOnce({7,1,5,3,6,4}));        // 5
-    printf("无限次 = %d\n", maxProfitUnlimited({7,1,5,3,6,4}));      // 7
-    printf("最多两笔 = %d\n", maxProfitTwo({3,3,5,0,0,3,1,4}));      // 6
-    printf("最多 k=2 笔 = %d\n", maxProfitK(2, {3,3,5,0,0,3,1,4}));   // 6
-    printf("DI 排列数 = %d\n", numPermsDISequence("DID"));           // 5
-    printf("K 个逆序对 = %d\n", kInversePairs(3, 1));                // 2
-    printf("兼职最大报酬 = %d\n", jobScheduling({1,2,3,3}, {3,4,5,6}, {50,10,40,70})); // 120
+    std::cout << "一次交易 = " << maxProfitOnce({7,1,5,3,6,4}) << "\n";        // 5
+    std::cout << "无限次 = " << maxProfitUnlimited({7,1,5,3,6,4}) << "\n";      // 7
+    std::cout << "最多两笔 = " << maxProfitTwo({3,3,5,0,0,3,1,4}) << "\n";      // 6
+    std::cout << "最多 k=2 笔 = " << maxProfitK(2, {3,3,5,0,0,3,1,4}) << "\n";   // 6
+    std::cout << "DI 排列数 = " << numPermsDISequence("DID") << "\n";           // 5
+    std::cout << "K 个逆序对 = " << kInversePairs(3, 1) << "\n";                // 2
+    std::cout << "兼职最大报酬 = " << jobScheduling({1,2,3,3}, {3,4,5,6}, {50,10,40,70}) << "\n"; // 120
     return 0;
 }

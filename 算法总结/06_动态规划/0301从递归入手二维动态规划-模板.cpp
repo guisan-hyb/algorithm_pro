@@ -1,6 +1,10 @@
 // 二维动态规划模板：最小路径和 / LCS / 最长回文子序列 / 二叉树结构数 / 矩阵最长递增路径
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 // ================= 1. 最小路径和（二维 DP + 空间压缩） =================
@@ -73,12 +77,13 @@ int editDistance(const string& s1, const string& s2, int a, int b, int c) {
 class LongestIncreasingPath {
     int m, n;
     vector<vector<int>> dp;
-    int dx[4] = {1, -1, 0, 0}, dy[4] = {0, 0, 1, -1};
+    const std::array<int, 4> rowOffset = {1, -1, 0, 0};
+    const std::array<int, 4> columnOffset = {0, 0, 1, -1};
     int f(const vector<vector<int>>& g, int i, int j) {
         if (dp[i][j] != -1) return dp[i][j];
         int nxt = 0;
         for (int d = 0; d < 4; d++) {
-            int x = i + dx[d], y = j + dy[d];
+            int x = i + rowOffset[d], y = j + columnOffset[d];
             if (x >= 0 && x < m && y >= 0 && y < n && g[x][y] > g[i][j])
                 nxt = max(nxt, f(g, x, y));
         }
@@ -98,11 +103,11 @@ public:
 
 int main() {
     vector<vector<int>> g = {{1,3,1},{1,5,1},{4,2,1}};
-    printf("最小路径和 = %d\n", minPathSum(g));                        // 7
-    printf("LCS = %d\n", longestCommonSubsequence("abcde", "ace"));    // 3
-    printf("最长回文子序列 = %d\n", longestPalindromeSubseq("bbbab")); // 4
-    printf("编辑距离 = %d\n", editDistance("horse", "ros", 1, 1, 1));  // 3
+    std::cout << "最小路径和 = " << minPathSum(g) << "\n";                        // 7
+    std::cout << "LCS = " << longestCommonSubsequence("abcde", "ace") << "\n";    // 3
+    std::cout << "最长回文子序列 = " << longestPalindromeSubseq("bbbab") << "\n"; // 4
+    std::cout << "编辑距离 = " << editDistance("horse", "ros", 1, 1, 1) << "\n";  // 3
     LongestIncreasingPath lip;
-    printf("最长递增路径 = %d\n", lip.longestIncreasingPath(g));       // 4
+    std::cout << "最长递增路径 = " << lip.longestIncreasingPath(g) << "\n";       // 4
     return 0;
 }

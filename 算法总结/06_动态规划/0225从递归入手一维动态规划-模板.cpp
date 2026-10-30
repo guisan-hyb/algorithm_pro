@@ -1,6 +1,10 @@
 // 一维动态规划模板：递归 -> 记忆化 -> 迭代 -> 空间压缩
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <climits>
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 // ================= 1. 记忆化搜索骨架 =================
@@ -90,11 +94,11 @@ int numDecodingsII(const string& s) {
 }
 
 int main() {
-    printf("斐波那契 f(10) = %d\n", solveMemo(10));            // 0 初始化后未用，示例占位
+    std::cout << "斐波那契 f(10) = " << solveMemo(10) << "\n";            // 0 初始化后未用，示例占位
     vector<int> days = {1, 4, 6, 7, 8, 20}, costs = {2, 7, 15};
     MinCostTickets m;
-    printf("最低票价 = %d\n", m.mincostTickets(days, costs));   // 11
-    printf("解码方法(226) = %d\n", numDecodings("226"));        // 3
-    printf("解码方法II(1*) = %d\n", numDecodingsII("1*"));      // 18
+    std::cout << "最低票价 = " << m.mincostTickets(days, costs) << "\n";   // 11
+    std::cout << "解码方法(226) = " << numDecodings("226") << "\n";        // 3
+    std::cout << "解码方法II(1*) = " << numDecodingsII("1*") << "\n";      // 18
     return 0;
 }

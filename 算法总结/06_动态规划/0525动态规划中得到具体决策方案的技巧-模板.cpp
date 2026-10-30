@@ -1,6 +1,12 @@
 // 方案反推模板：LCS 路径 / 状压反推队伍 / 路径收集结构
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <climits>
+#include <iostream>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 using namespace std;
 
 // ================= 1. 由 DP 表反推 LCS 的具体方案 =================
@@ -100,18 +106,18 @@ vector<int> lisLexSmallest(const vector<int>& nums) {
 }
 
 int main() {
-    printf("LCS 方案 = %s\n", lcsPath("abcde", "ace").c_str());   // ace
+    std::cout << "LCS 方案 = " << lcsPath("abcde", "ace") << "\n";   // ace
 
     vector<string> req = {"java","nodejs","reactjs"};
     vector<vector<string>> people = {{"java"},{"nodejs"},{"nodejs","reactjs"}};
-    for (int i : smallestSufficientTeam(req, people)) printf("%d ", i);
-    puts("");                                                     // 0 2
+    for (int i : smallestSufficientTeam(req, people)) std::cout << i << " ";
+    std::cout << "\n";                                           // 0 2
 
     vector<int> lis = lisLexSmallest({1, 3, 2, 4});
-    for (int x : lis) printf("%d ", x);
-    puts("");                                                     // 1 2 4
+    for (int x : lis) std::cout << x << " ";
+    std::cout << "\n";                                           // 1 2 4
 
     auto pr = knapsackWithPath(10, 10, {5,4}, {6,5}, {10,8});
-    printf("最大价值 = %d, 方案 = %s\n", pr.first, pr.second.c_str());
+    std::cout << "最大价值 = " << pr.first << ", 方案 = " << pr.second << "\n";
     return 0;
 }

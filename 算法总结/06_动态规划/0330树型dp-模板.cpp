@@ -1,6 +1,12 @@
 // 树型 DP 模板：最大BST子树 / 直径 / 打家劫舍 / 监控 / 分配硬币 / dfn 序
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <climits>
+#include <cstdlib>
+#include <functional>
+#include <iostream>
+#include <utility>
+#include <vector>
 using namespace std;
 
 struct TreeNode {
@@ -119,10 +125,10 @@ int main() {
     TreeNode* root = new TreeNode(1,
         new TreeNode(2, new TreeNode(4), new TreeNode(5)),
         new TreeNode(3));
-    printf("最大BST子树 = %d\n", largestBSTSubtree(root));       // 1
-    printf("直径 = %d\n", diameterOfBinaryTree(root));           // 3
-    printf("打家劫舍 = %d\n", rob(root));                        // 7
-    printf("分配硬币步数 = %d\n", distributeCoins(root));        // 0
-    printf("最少摄像头 = %d\n", minCameraCover(root));           // 1
+    std::cout << "最大BST子树 = " << largestBSTSubtree(root) << "\n";       // 1
+    std::cout << "直径 = " << diameterOfBinaryTree(root) << "\n";           // 3
+    std::cout << "打家劫舍 = " << rob(root) << "\n";                        // 7
+    std::cout << "分配硬币步数 = " << distributeCoins(root) << "\n";        // 0
+    std::cout << "最少摄像头 = " << minCameraCover(root) << "\n";           // 1
     return 0;
 }

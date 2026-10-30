@@ -1,6 +1,10 @@
 // 二维字符串 DP 模板：不同子序列 / 编辑距离 / 交错字符串 / 涂色方案 / 删除成子串
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <climits>
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 // ================= 1. 不同的子序列（空间压缩） =================
@@ -78,10 +82,10 @@ int minDeleteToSubstring(const string& s1, const string& s2) {
 }
 
 int main() {
-    printf("不同子序列 = %d\n", numDistinct("rabbbit", "rabbit"));        // 3
-    printf("编辑距离 = %d\n", editDistance("horse", "ros", 1, 1, 1));     // 3
-    printf("交错字符串 = %d\n", (int)isInterleave("aab", "axy", "aaxaby"));// 1
-    printf("涂色方案 = %d\n", coloringWays(3, 2));                        // 6
-    printf("最少删除 = %d\n", minDeleteToSubstring("abcde", "bcd"));      // 2
+    std::cout << "不同子序列 = " << numDistinct("rabbbit", "rabbit") << "\n";        // 3
+    std::cout << "编辑距离 = " << editDistance("horse", "ros", 1, 1, 1) << "\n";     // 3
+    std::cout << "交错字符串 = " << (int)isInterleave("aab", "axy", "aaxaby") << "\n";// 1
+    std::cout << "涂色方案 = " << coloringWays(3, 2) << "\n";                        // 6
+    std::cout << "最少删除 = " << minDeleteToSubstring("abcde", "bcd") << "\n";      // 2
     return 0;
 }

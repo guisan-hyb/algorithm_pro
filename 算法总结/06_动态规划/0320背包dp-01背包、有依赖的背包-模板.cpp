@@ -1,6 +1,12 @@
 // 01 背包模板：基础 / 目标和转化 / 石头 / 前 k 小子序列和 / 第 K 大子序列和
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <cstdlib>
+#include <functional>
+#include <iostream>
+#include <queue>
+#include <vector>
 using namespace std;
 
 // ================= 1. 01 背包（空间压缩） =================
@@ -117,10 +123,10 @@ long long kSum(vector<int> nums, int k) {
 
 int main() {
     vector<int> cost = {1, 2, 3}, val = {1, 5, 8};
-    printf("01 背包 = %d\n", knapsack01(4, cost, val));        // 9
-    printf("目标和方案数 = %d\n", findTargetSumWays({1,1,1,1,1}, 3));  // 5
-    printf("最后石头重量 = %d\n", lastStoneWeightII({2,7,4,1,8,1}));   // 1
-    printf("第 3 小子序列和 = %lld\n", topKSmallestSubseqSum({1,2,3}, 3)[2]);  // 3
-    printf("第 2 大子序列和 = %lld\n", kSum({1,2,3,4,5}, 2));  // 14
+    std::cout << "01 背包 = " << knapsack01(4, cost, val) << "\n";        // 9
+    std::cout << "目标和方案数 = " << findTargetSumWays({1,1,1,1,1}, 3) << "\n";  // 5
+    std::cout << "最后石头重量 = " << lastStoneWeightII({2,7,4,1,8,1}) << "\n";   // 1
+    std::cout << "第 3 小子序列和 = " << topKSmallestSubseqSum({1,2,3}, 3)[2] << "\n";  // 3
+    std::cout << "第 2 大子序列和 = " << kSum({1,2,3,4,5}, 2) << "\n";  // 14
     return 0;
 }

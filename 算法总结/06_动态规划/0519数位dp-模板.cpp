@@ -1,6 +1,9 @@
 // 数位 DP 模板：不含连续1 / 数位和区间计数 / 无重复数字 / windy数 / 位数码计数
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <bitset>
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 // ================= 通用要点 =================
@@ -147,14 +150,14 @@ public:
 
 int main() {
     NoConsecutiveOnes a;
-    printf("不含连续1(5) = %d\n", a.findIntegers(5));          // 5
+    std::cout << "不含连续1(5) = " << a.findIntegers(5) << "\n";          // 5
     CountOfIntegers b;
-    printf("数位和[1,8]内的数(1..20) = %d\n", b.count("1", "20", 1, 8));  // 18
+    std::cout << "数位和[1,8]内的数(1..20) = " << b.count("1", "20", 1, 8) << "\n";  // 18
     SpecialNumbers c;
-    printf("无重复数字(20) = %d\n", c.countSpecialNumbers(20));  // 19
+    std::cout << "无重复数字(20) = " << c.countSpecialNumbers(20) << "\n";  // 19
     WindyNumbers d;
-    printf("windy数[1,10] = %d\n", d.inRange(1, 10));            // 9
+    std::cout << "windy数[1,10] = " << d.inRange(1, 10) << "\n";            // 9
     DigitOne e;
-    printf("数字1的个数(13) = %lld\n", e.countDigitOne(13));     // 6
+    std::cout << "数字1的个数(13) = " << e.countDigitOne(13) << "\n";     // 6
     return 0;
 }

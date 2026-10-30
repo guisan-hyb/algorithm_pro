@@ -1,6 +1,9 @@
 // 多重背包模板：二进制分组 / 混合背包 / 可行性背包
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iomanip>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 // ================= 1. 二进制分组：多重背包 -> 01 背包 =================
@@ -71,14 +74,14 @@ int multiKnapsackNaive(int cap, const vector<int>& weight,
 int main() {
     // 洛谷 P1776 样例：1 种货物，价值 5、重量 3、数量 13，容量 10
     vector<int> w = {3}, v = {5}, c = {13};
-    printf("多重背包(二进制) = %lld\n", multiKnapsackBinary(10, w, v, c));   // 15
-    printf("多重背包(朴素)   = %d\n", multiKnapsackNaive(10, w, v, c));      // 15
+    std::cout << "多重背包(二进制) = " << multiKnapsackBinary(10, w, v, c) << "\n";   // 15
+    std::cout << "多重背包(朴素)   = " << multiKnapsackNaive(10, w, v, c) << "\n";      // 15
 
     // 混合背包：货物 1 无限件、货物 2 限 2 件
     vector<int> w2 = {2, 3}, v2 = {3, 4}, c2 = {0, 2};
-    printf("混合背包 = %lld\n", mixedKnapsack(10, w2, v2, c2));              // 15
+    std::cout << "混合背包 = " << mixedKnapsack(10, w2, v2, c2) << "\n";              // 15
 
     // POJ 1742 样例：面值 3 的货币 5 张，问 1~10 能凑出几种
-    printf("可凑出金额种数 = %d\n", countableAmounts(10, {3}, {5}));          // 3
+    std::cout << "可凑出金额种数 = " << countableAmounts(10, {3}, {5}) << "\n";          // 3
     return 0;
 }

@@ -1,6 +1,10 @@
 // 状压 DP 模板：TSP / 等和子集 / 帽子分配 / 子集枚举 trick
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <climits>
+#include <functional>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 // ================= 1. TSP：dp[status][i] =================
@@ -122,9 +126,9 @@ bool canDistribute(vector<int> nums, vector<int> quantity) {
 int main() {
     int n = 4;
     vector<vector<int>> d = {{0,2,9,10},{1,0,6,4},{15,7,0,8},{6,3,12,0}};
-    printf("TSP 最短路 = %d\n", tsp(n, d));                     // 21
-    printf("划分为 4 个等和子集 = %d\n", (int)canPartitionKSubsets({1,1,2,2,2}, 4));  // 0
+    std::cout << "TSP 最短路 = " << tsp(n, d) << "\n";                     // 21
+    std::cout << "划分为 4 个等和子集 = " << (int)canPartitionKSubsets({1,1,2,2,2}, 4) << "\n";  // 0
     vector<vector<int>> hats = {{3,4},{4,5},{5}};
-    printf("戴帽子方案数 = %d\n", numberWays(hats));            // 1
+    std::cout << "戴帽子方案数 = " << numberWays(hats) << "\n";            // 1
     return 0;
 }

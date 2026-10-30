@@ -1,6 +1,10 @@
 // 子数组最大累加和模板：最大和/区间、打家劫舍、环形、乘积、子矩阵、余数状态、卷轴、三无重叠
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <climits>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 // ================= 1. 最大子数组和 + 区间 =================
@@ -156,10 +160,10 @@ vector<int> maxSumOfThreeSubarrays(const vector<int>& nums, int k) {
 int main() {
     vector<int> a = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
     auto r = maxSubArrayRange(a);
-    printf("最大子数组和 = %d (下标 %d~%d)\n", r[2], r[0], r[1]);   // 6 (3~6)
-    printf("环形最大和 = %d\n", maxSubarraySumCircular({5,-3,5}));  // 10
-    printf("打家劫舍 = %d\n", rob({2,7,9,3,1}));                    // 12
-    printf("乘积最大 = %d\n", maxProduct({2,3,-2,4}));              // 6
-    printf("被7整除最大和 = %d\n", maxSumDivisibleBy7({4,3,2,1}));  // 7
+    std::cout << "最大子数组和 = " << r[2] << " (下标 " << r[0] << "~" << r[1] << ")\n";   // 6 (3~6)
+    std::cout << "环形最大和 = " << maxSubarraySumCircular({5,-3,5}) << "\n";  // 10
+    std::cout << "打家劫舍 = " << rob({2,7,9,3,1}) << "\n";                    // 12
+    std::cout << "乘积最大 = " << maxProduct({2,3,-2,4}) << "\n";              // 6
+    std::cout << "被7整除最大和 = " << maxSumDivisibleBy7({4,3,2,1}) << "\n";  // 7
     return 0;
 }

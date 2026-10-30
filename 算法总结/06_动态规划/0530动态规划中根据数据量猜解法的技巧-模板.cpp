@@ -1,6 +1,10 @@
 // 数据量猜解法模板：同一题的两种 DP / 排列转 LIS / 值域太大用哈希表
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <climits>
+#include <iostream>
+#include <unordered_map>
+#include <vector>
 using namespace std;
 
 // ================= 1. 贿赂怪兽：a 大 b 小 -> 按"钱"做容量 =================
@@ -87,17 +91,17 @@ int makeArrayIncreasing(const vector<int>& arr1, vector<int> arr2, int i, int pr
 
 int main() {
     vector<int> a = {0, 8, 2, 5}, b = {0, 1, 4, 2};     // 1-based 使用
-    printf("按钱做容量 = %d\n", bribeByMoney(3, a, b));
-    printf("按能力做容量 = %lld\n", bribeByAbility(3, a, b));
+    std::cout << "按钱做容量 = " << bribeByMoney(3, a, b) << "\n";
+    std::cout << "按能力做容量 = " << bribeByAbility(3, a, b) << "\n";
 
     vector<int> A = {3, 2, 1, 4, 5}, B = {1, 2, 3, 4, 5};
-    printf("排列的 LCS = %d\n", lcsOfPermutations(A, B));   // 3
+    std::cout << "排列的 LCS = " << lcsOfPermutations(A, B) << "\n";   // 3
 
     vector<int> arr1 = {1, 5, 3, 6, 7};
     vector<int> arr2 = {1, 3, 2, 4};
     sort(arr2.begin(), arr2.end());
     arr2.erase(unique(arr2.begin(), arr2.end()), arr2.end());
     memo.clear();
-    printf("最小替换次数 = %d\n", makeArrayIncreasing(arr1, arr2, 0, INT_MIN / 2));
+    std::cout << "最小替换次数 = " << makeArrayIncreasing(arr1, arr2, 0, INT_MIN / 2) << "\n";
     return 0;
 }

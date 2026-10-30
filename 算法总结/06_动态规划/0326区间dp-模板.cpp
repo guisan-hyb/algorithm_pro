@@ -1,6 +1,10 @@
 // 区间 DP 模板：回文插入 / 预测赢家 / 三角剖分 / 切棍子 / 戳气球 / 合并石头 / 不同回文子序列
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <climits>
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 // ================= 1. 让字符串成为回文的最少插入次数 =================
@@ -127,12 +131,12 @@ int countPalindromicSubsequences(const string& s) {
 }
 
 int main() {
-    printf("回文最少插入 = %d\n", minInsertions("mbadm"));               // 2
-    printf("预测赢家 = %d\n", (int)predictTheWinner({1,5,2}));            // 0(输)
-    printf("三角剖分最低分 = %d\n", minScoreTriangulation({1,3,1,4,1,5}));// 13
-    printf("切棍最小成本 = %d\n", minCostToCut(7, {1,3,4,5}));            // 16
-    printf("戳气球最大 = %d\n", maxCoins({3,1,5,8}));                     // 167
-    printf("合并石头最低成本 = %d\n", mergeStones({3,2,4,1}, 2));         // 20
-    printf("不同回文子序列 = %d\n", countPalindromicSubsequences("bccb"));// 6
+    std::cout << "回文最少插入 = " << minInsertions("mbadm") << "\n";               // 2
+    std::cout << "预测赢家 = " << (int)predictTheWinner({1,5,2}) << "\n";            // 0(输)
+    std::cout << "三角剖分最低分 = " << minScoreTriangulation({1,3,1,4,1,5}) << "\n";// 13
+    std::cout << "切棍最小成本 = " << minCostToCut(7, {1,3,4,5}) << "\n";            // 16
+    std::cout << "戳气球最大 = " << maxCoins({3,1,5,8}) << "\n";                     // 167
+    std::cout << "合并石头最低成本 = " << mergeStones({3,2,4,1}, 2) << "\n";         // 20
+    std::cout << "不同回文子序列 = " << countPalindromicSubsequences("bccb") << "\n";// 6
     return 0;
 }
