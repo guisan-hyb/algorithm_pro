@@ -1,6 +1,11 @@
 // 字符串哈希模板：子串哈希 O(1) / 替代 KMP / 统计不同字符串
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <iostream>
+#include <string>
+#include <unordered_set>
+#include <vector>
 using namespace std;
 
 const unsigned long long BASE = 499;                 // 建议用质数（433/499/599/1e9+7）
@@ -60,7 +65,7 @@ int equalDigitFrequency(const string& str) {
     for (int i = 0; i < n; i++) {
         unsigned long long hashCode = 0;
         int maxCnt = 0, maxCntKind = 0, allKind = 0;
-        int cnt[10] = {0};
+        std::array<int, 10> cnt= {0};
         for (int j = i; j < n; j++) {
             int cur = str[j] - '0';
             if (++cnt[cur] == 1) allKind++;
@@ -87,11 +92,11 @@ int repeatedStringMatch(const string& a, const string& b) {
 }
 
 int main() {
-    printf("strStr(abcabcabc, abc) = %d\n", strStr("abcabcabc", "abc"));   // 0
-    printf("不同字符串个数 = %d\n", distinctStrings({"ab","ab","ba"}));     // 2
-    printf("独特子串数量 = %d\n", equalDigitFrequency("1212"));             // 5
-    printf("重复叠加 = %d\n", repeatedStringMatch("abcd", "cdabcdab"));     // 3
+    std::cout << "strStr(abcabcabc, abc) = " << strStr("abcabcabc", "abc") << "\n";   // 0
+    std::cout << "不同字符串个数 = " << distinctStrings({"ab","ab","ba"}) << "\n";     // 2
+    std::cout << "独特子串数量 = " << equalDigitFrequency("1212") << "\n";             // 5
+    std::cout << "重复叠加 = " << repeatedStringMatch("abcd", "cdabcdab") << "\n";     // 3
     StringHash h("cabef");
-    printf("子串 be 的哈希 = %llu\n", h.get(2, 3));
+    std::cout << "子串 be 的哈希 = " << h.get(2, 3) << "\n";
     return 0;
 }

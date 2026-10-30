@@ -1,6 +1,8 @@
 // KMP 模板 + 例题（子树判断）
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 // ================= next 数组 =================
@@ -56,15 +58,15 @@ bool isSubtree(TreeNode* root, TreeNode* subRoot) {
 }
 
 int main() {
-    printf("kmp(abcabcabc, abc) = %d\n", kmp("abcabcabc", "abc"));   // 0
-    printf("kmp(hello, ll) = %d\n", kmp("hello", "ll"));             // 2
-    printf("kmp(hello, xyz) = %d\n", kmp("hello", "xyz"));           // -1
+    std::cout << "kmp(abcabcabc, abc) = " << kmp("abcabcabc", "abc") << "\n";   // 0
+    std::cout << "kmp(hello, ll) = " << kmp("hello", "ll") << "\n";             // 2
+    std::cout << "kmp(hello, xyz) = " << kmp("hello", "xyz") << "\n";           // -1
     auto nxt = getNext("aabaab");
-    printf("next(aabaab) = ");
-    for (int v : nxt) printf("%d ", v);                             // -1 0 1 0 1 2
-    puts("");
+    std::cout << "next(aabaab) = ";
+    for (int v : nxt) std::cout << v << " ";                             // -1 0 1 0 1 2
+    std::cout << "\n";
     TreeNode* root = new TreeNode(3, new TreeNode(4, new TreeNode(1), new TreeNode(2)), new TreeNode(5));
     TreeNode* sub = new TreeNode(4, new TreeNode(1), new TreeNode(2));
-    printf("isSubtree = %d\n", (int)isSubtree(root, sub));           // 1
+    std::cout << "isSubtree = " << (int)isSubtree(root, sub) << "\n";           // 1
     return 0;
 }
