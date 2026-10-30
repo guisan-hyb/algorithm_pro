@@ -1,7 +1,8 @@
 // 链表高频题模板：相交 / 入环 / 回文 / K 个一组翻转
 // 全部为额外空间 O(1) 版本（面试推荐）
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <cstdlib>
+#include <iostream>
 using namespace std;
 
 struct ListNode {
@@ -101,16 +102,16 @@ ListNode* reverseKGroup(ListNode* head, int k) {
 
 int main() {
     int n, k;
-    if (scanf("%d %d", &n, &k) != 2) return 0;
+    if (!(std::cin >> n >> k)) return 0;
     ListNode dummy, *tail = &dummy;
     for (int i = 0, x; i < n; i++) {
-        scanf("%d", &x);
+        (std::cin >> x);
         tail->next = new ListNode(x);
         tail = tail->next;
     }
-    printf("palindrome = %d\n", isPalindrome(dummy.next));
+    std::cout << "palindrome = " << isPalindrome(dummy.next) << "\n";
     ListNode* h = reverseKGroup(dummy.next, k);
-    for (ListNode* p = h; p; p = p->next) printf("%d ", p->val);
-    puts("");
+    for (ListNode* p = h; p; p = p->next) std::cout << p->val << " ";
+    std::cout << "\n";
     return 0;
 }

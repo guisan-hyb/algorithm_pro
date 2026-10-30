@@ -1,7 +1,8 @@
 // 双端队列模板：固定数组（环形缓冲）实现
 // 四种操作 O(1)；空间 O(limit)，不可扩容
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class MyDeque {
@@ -50,8 +51,8 @@ public:
 int main() {
     MyDeque dq(5);
     dq.insertRear(1); dq.insertRear(2); dq.insertFront(0);
-    printf("front=%d rear=%d\n", dq.getFront(), dq.getRear());  // 0 2
+    std::cout << "front=" << dq.getFront() << " rear=" << dq.getRear() << "\n";  // 0 2
     dq.deleteFront(); dq.deleteRear();
-    printf("front=%d rear=%d\n", dq.getFront(), dq.getRear());  // 1 1
+    std::cout << "front=" << dq.getFront() << " rear=" << dq.getRear() << "\n";  // 1 1
     return 0;
 }

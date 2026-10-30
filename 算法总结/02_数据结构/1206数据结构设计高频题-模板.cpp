@@ -1,6 +1,15 @@
 // 数据结构设计高频题模板：LRU / RandomizedSet / 中位数 / 最大频率栈 / setAll
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cstdlib>
+#include <functional>
+#include <iomanip>
+#include <iostream>
+#include <list>
+#include <queue>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 using namespace std;
 
 // ================= 1. LRU 缓存 =================
@@ -114,12 +123,12 @@ public:
 int main() {
     LRUCache lru(2);
     lru.put(1, 1); lru.put(2, 2);
-    printf("%d\n", lru.get(1));      // 1
+    std::cout << lru.get(1) << "\n";      // 1
     lru.put(3, 3);                   // 淘汰 key=2
-    printf("%d\n", lru.get(2));      // -1
+    std::cout << lru.get(2) << "\n";      // -1
 
     MedianFinder mf;
     mf.addNum(1); mf.addNum(2); mf.addNum(3);
-    printf("%.1f\n", mf.findMedian());   // 2.0
+    std::cout << std::fixed << std::setprecision(1) << mf.findMedian() << std::defaultfloat << std::setprecision(6) << "\n";   // 2.0
     return 0;
 }

@@ -1,11 +1,15 @@
 // 前缀树进阶模板：二进制 Trie 求最大异或 + 哈希贪心解法
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <iostream>
+#include <unordered_set>
+#include <vector>
 using namespace std;
 
 // ================= 1. 二进制 Trie（求最大异或对） =================
 static const int MAXN = 3000001;      // 约 31 * n
-int trie[MAXN][2];
+std::array<std::array<int, 2>, MAXN> trie = {};
 int nodeCnt = 1, highBit = 0;
 
 void buildXorTrie(const vector<int>& nums) {
@@ -62,14 +66,14 @@ int findMaximumXOR(vector<int>& nums) {
 
 int main() {
     int n;
-    if (scanf("%d", &n) != 1) return 0;
+    if (!(std::cin >> n)) return 0;
     vector<int> nums(n);
-    for (int& x : nums) scanf("%d", &x);
+    for (int& x : nums) (std::cin >> x);
 
-    printf("哈希贪心: %d\n", findMaximumXOR(nums));
+    std::cout << "哈希贪心: " << findMaximumXOR(nums) << "\n";
     buildXorTrie(nums);
     int ans = 0;
     for (int x : nums) ans = max(ans, queryMaxXor(x));
-    printf("二进制 Trie: %d\n", ans);
+    std::cout << "二进制 Trie: " << ans << "\n";
     return 0;
 }

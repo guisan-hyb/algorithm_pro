@@ -1,7 +1,8 @@
 // 树状数组模板：单点加/区间查、区间加/单点查、区间加/区间查、二维
 // 全部 O(log n) 单次操作；下标从 1 开始
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 // ================= 1. 单点增加 + 范围查询 =================
@@ -61,19 +62,19 @@ struct BIT2D {
 
 int main() {
     int n, m;
-    if (scanf("%d %d", &n, &m) != 2) return 0;
+    if (!(std::cin >> n >> m)) return 0;
 
     BIT<long long> bit(n);
-    for (int i = 1, x; i <= n; i++) { scanf("%d", &x); bit.add(i, x); }
+    for (int i = 1, x; i <= n; i++) { (std::cin >> x); bit.add(i, x); }
 
     while (m--) {
-        int opt; scanf("%d", &opt);
+        int opt; (std::cin >> opt);
         if (opt == 1) {                 // 单点加
-            int x, v; scanf("%d %d", &x, &v);
+            int x, v; std::cin >> x >> v;
             bit.add(x, v);
         } else {                        // 区间查
-            int l, r; scanf("%d %d", &l, &r);
-            printf("%lld\n", bit.range(l, r));
+            int l, r; std::cin >> l >> r;
+            std::cout << bit.range(l, r) << "\n";
         }
     }
     return 0;

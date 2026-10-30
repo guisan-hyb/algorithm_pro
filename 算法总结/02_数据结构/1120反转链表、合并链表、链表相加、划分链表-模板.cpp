@@ -1,7 +1,7 @@
 // 链表四件套模板：反转 / 合并 / 相加 / 划分
 // 统一使用"哨兵节点 dummy"，避免头结点特判
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
 struct ListNode {
@@ -66,15 +66,15 @@ ListNode* partition(ListNode* head, int x) {
 // ---------- 简单自测：建链表 -> 反转 -> 打印 ----------
 int main() {
     int n;
-    if (scanf("%d", &n) != 1) return 0;
+    if (!(std::cin >> n)) return 0;
     ListNode dummy, *tail = &dummy;
     for (int i = 0, x; i < n; i++) {
-        scanf("%d", &x);
+        (std::cin >> x);
         tail->next = new ListNode(x);
         tail = tail->next;
     }
     ListNode* h = reverseList(dummy.next);
-    for (ListNode* p = h; p; p = p->next) printf("%d ", p->val);
-    puts("");
+    for (ListNode* p = h; p; p = p->next) std::cout << p->val << " ";
+    std::cout << "\n";
     return 0;
 }

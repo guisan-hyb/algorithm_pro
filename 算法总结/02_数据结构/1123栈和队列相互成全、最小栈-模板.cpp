@@ -1,6 +1,9 @@
 // 栈与队列相互实现 + 最小栈：可直接使用的类模板
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <queue>
+#include <stack>
 using namespace std;
 
 // ============ 1. 两个栈实现队列 ============
@@ -52,11 +55,11 @@ public:
 int main() {
     MinStack ms;
     int n;
-    if (scanf("%d", &n) != 1) return 0;
+    if (!(std::cin >> n)) return 0;
     for (int i = 0, x; i < n; i++) {
-        scanf("%d", &x);
+        (std::cin >> x);
         ms.push(x);
-        printf("push %d -> min = %d\n", x, ms.getMin());
+        std::cout << "push " << x << " -> min = " << ms.getMin() << "\n";
     }
     return 0;
 }

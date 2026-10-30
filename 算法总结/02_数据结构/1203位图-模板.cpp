@@ -1,6 +1,9 @@
 // 位图模板：基础位图 + O(1) 整体翻转的 Bitset
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 // ================= 基础位图 =================
@@ -52,8 +55,8 @@ public:
 int main() {
     Bitset bs(5);
     bs.fix(0); bs.fix(2);
-    printf("%s count=%d\n", bs.toString().c_str(), bs.count());   // 10100 count=2
+    std::cout << bs.toString() << " count=" << bs.count() << "\n";   // 10100 count=2
     bs.flip();                                                    // 整体翻转，O(1)
-    printf("%s count=%d all=%d\n", bs.toString().c_str(), bs.count(), (int)bs.all());
+    std::cout << bs.toString() << " count=" << bs.count() << " all=" << (int)bs.all() << "\n";
     return 0;
 }
