@@ -1,6 +1,15 @@
 // 贪心专题2模板：砍竹子 / 分k份 / 会议两类 / IPO / 差值收敛
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <climits>
+#include <cstdlib>
+#include <functional>
+#include <iostream>
+#include <numeric>
+#include <queue>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 using namespace std;
 const long long MOD = 1000000007;
 
@@ -103,11 +112,11 @@ int finalLengthBrute(vector<int> arr) {
 }
 
 int main() {
-    printf("砍竹子(10) = %d\n", cuttingBamboo(10));                   // 36
-    printf("分k份 = %d\n", maxProductOfKParts(6, 3));                  // 8
-    printf("独占会议数 = %d\n", maxEventsExclusive({{1,2},{2,3},{3,4}}));  // 3
-    printf("只占一天 = %d\n", maxEvents({{1,2},{2,3},{3,4}}));              // 3
-    printf("IPO = %d\n", findMaximizedCapital(2, 0, {1,2,3}, {0,1,1}));     // 4
-    printf("最终长度 = %d (暴力 = %d)\n", finalLength({6,10}), finalLengthBrute({6,10}));
+    std::cout << "砍竹子(10) = " << cuttingBamboo(10) << "\n";                   // 36
+    std::cout << "分k份 = " << maxProductOfKParts(6, 3) << "\n";                  // 8
+    std::cout << "独占会议数 = " << maxEventsExclusive({{1,2},{2,3},{3,4}}) << "\n";  // 3
+    std::cout << "只占一天 = " << maxEvents({{1,2},{2,3},{3,4}}) << "\n";              // 3
+    std::cout << "IPO = " << findMaximizedCapital(2, 0, {1,2,3}, {0,1,1}) << "\n";     // 4
+    std::cout << "最终长度 = " << finalLength({6,10}) << " (暴力 = " << finalLengthBrute({6,10}) << ")\n";
     return 0;
 }

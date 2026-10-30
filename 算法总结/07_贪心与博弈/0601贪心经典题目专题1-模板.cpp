@@ -1,6 +1,12 @@
 // 贪心专题1模板：最大数 / 两地调度 / 会议室 / 课程表 / 哈夫曼 / 吃橘子
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <functional>
+#include <iostream>
+#include <queue>
+#include <string>
+#include <unordered_map>
+#include <vector>
 using namespace std;
 
 // ---------- 1. 最大数（比较器：a+b > b+a） ----------
@@ -77,12 +83,12 @@ int minDays(int n) {
 }
 
 int main() {
-    printf("最大数 = %s\n", largestNumber({10, 2}).c_str());        // 210
+    std::cout << "最大数 = " << largestNumber({10, 2}) << "\n";        // 210
     vector<vector<int>> costs = {{10,20},{30,200},{400,50},{30,20}};
-    printf("两地调度 = %d\n", twoCitySchedCost(costs));              // 110
-    printf("最少会议室 = %d\n", minMeetingRooms({{0,30},{5,10},{15,20}}));  // 2
-    printf("最多课程 = %d\n", scheduleCourse({{100,200},{200,1300},{1000,1250},{2000,3200}}));  // 3
-    printf("连接棒材费用 = %lld\n", connectSticks({2,4,3}));          // 14
-    printf("吃橘子天数 = %d\n", minDays(10));                        // 4
+    std::cout << "两地调度 = " << twoCitySchedCost(costs) << "\n";              // 110
+    std::cout << "最少会议室 = " << minMeetingRooms({{0,30},{5,10},{15,20}}) << "\n";  // 2
+    std::cout << "最多课程 = " << scheduleCourse({{100,200},{200,1300},{1000,1250},{2000,3200}}) << "\n";  // 3
+    std::cout << "连接棒材费用 = " << connectSticks({2,4,3}) << "\n";          // 14
+    std::cout << "吃橘子天数 = " << minDays(10) << "\n";                        // 4
     return 0;
 }

@@ -1,6 +1,12 @@
 // 贪心专题4模板：最小偏移量 / 兔子 / 相似数组 / 知识竞赛 / 递增分组 / 最少加油
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cstdlib>
+#include <iostream>
+#include <queue>
+#include <set>
+#include <unordered_map>
+#include <vector>
 using namespace std;
 
 // ---------- 1. 数组的最小偏移量 ----------
@@ -88,11 +94,11 @@ int minRefuelStops(int target, int startFuel, vector<vector<int>>& stations) {
 }
 
 int main() {
-    printf("最小偏移量 = %d\n", minimumDeviation({1,2,3,4}));        // 1
-    printf("最少兔子数 = %d\n", numRabbits({1,1,2}));                 // 5
-    printf("相似最少操作 = %lld\n", makeSimilar({1,2,3}, {2,1,3}));   // 0
-    printf("递增分组 = %d\n", (int)canDivideIntoSubsequences({1,2,2,3,3,4}, 3));  // 1
+    std::cout << "最小偏移量 = " << minimumDeviation({1,2,3,4}) << "\n";        // 1
+    std::cout << "最少兔子数 = " << numRabbits({1,1,2}) << "\n";                 // 5
+    std::cout << "相似最少操作 = " << makeSimilar({1,2,3}, {2,1,3}) << "\n";   // 0
+    std::cout << "递增分组 = " << (int)canDivideIntoSubsequences({1,2,2,3,3,4}, 3) << "\n";  // 1
     vector<vector<int>> st = {{10,60},{20,30},{30,30},{60,40}};
-    printf("最少加油次数 = %d\n", minRefuelStops(100, 10, st));       // 2
+    std::cout << "最少加油次数 = " << minRefuelStops(100, 10, st) << "\n";       // 2
     return 0;
 }

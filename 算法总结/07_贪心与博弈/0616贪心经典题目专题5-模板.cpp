@@ -1,6 +1,10 @@
 // 贪心专题5模板：跳跃游戏 / 水龙头 / 字符串转化 / 过河 / 超级洗衣机
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cstdlib>
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 // ---------- 1. 跳跃游戏 II（区间覆盖） ----------
@@ -83,12 +87,12 @@ int findMinMoves(vector<int>& m) {
 
 int main() {
     vector<int> a = {2,3,1,1,4};
-    printf("最少跳跃 = %d\n", jump(a));                              // 2
+    std::cout << "最少跳跃 = " << jump(a) << "\n";                              // 2
     vector<int> r = {3,4,1,1,0,0};
-    printf("水龙头 = %d\n", minTaps(5, r));                          // 1
-    printf("字符串转化 = %d\n", (int)canConvert("aabcc", "ccdee"));    // 1
-    printf("过河时间 = %lld\n", crossRiver({1,2,5,10}));              // 17
+    std::cout << "水龙头 = " << minTaps(5, r) << "\n";                          // 1
+    std::cout << "字符串转化 = " << (int)canConvert("aabcc", "ccdee") << "\n";    // 1
+    std::cout << "过河时间 = " << crossRiver({1,2,5,10}) << "\n";              // 17
     vector<int> m = {1,0,5};
-    printf("超级洗衣机 = %d\n", findMinMoves(m));                     // 3
+    std::cout << "超级洗衣机 = " << findMinMoves(m) << "\n";                     // 3
     return 0;
 }

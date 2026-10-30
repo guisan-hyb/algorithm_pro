@@ -1,6 +1,9 @@
 // 博弈模板：巴什 / 尼姆 / 反尼姆 / SG 打表 / lowZero / 分裂游戏
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <utility>
+#include <vector>
 using namespace std;
 
 // ================= 经典结论 =================
@@ -77,14 +80,14 @@ bool fibNimWin(int a, int b, int c) {
 }
 
 int main() {
-    printf("巴什(10,3) = %d\n", (int)bashWin(10, 3));            // 1
-    printf("尼姆(1,2,3) = %d\n", (int)nimWin({1,2,3}));           // 0
-    printf("反尼姆(1,1) = %d\n", (int)antiNimWin({1,1}));         // 1
-    printf("质数次方版(12) = %d\n", (int)primePowerBashWin(12));  // 0
+    std::cout << "巴什(10,3) = " << (int)bashWin(10, 3) << "\n";            // 1
+    std::cout << "尼姆(1,2,3) = " << (int)nimWin({1,2,3}) << "\n";           // 0
+    std::cout << "反尼姆(1,1) = " << (int)antiNimWin({1,1}) << "\n";         // 1
+    std::cout << "质数次方版(12) = " << (int)primePowerBashWin(12) << "\n";  // 0
     auto sg = buildSG(10, {1, 2, 3});
-    printf("sg[10] = %d\n", sg[10]);
-    printf("lowZero(0b1011) = %d\n", lowZero(0b1011));            // 2
-    printf("E&D = %d\n", (int)eAndDWin({{1,1},{2,3}}));
-    printf("斐波那契尼姆(1,2,3) = %d\n", (int)fibNimWin(1,2,3));
+    std::cout << "sg[10] = " << sg[10] << "\n";
+    std::cout << "lowZero(0b1011) = " << lowZero(0b1011) << "\n";            // 2
+    std::cout << "E&D = " << (int)eAndDWin({{1,1},{2,3}}) << "\n";
+    std::cout << "斐波那契尼姆(1,2,3) = " << (int)fibNimWin(1,2,3) << "\n";
     return 0;
 }

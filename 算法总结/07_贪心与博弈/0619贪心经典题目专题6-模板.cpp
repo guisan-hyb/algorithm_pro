@@ -1,6 +1,14 @@
 // 贪心专题6模板：消灭怪物 / 最大回文数字 / 最大平均通过率 / 雇佣工人 / 砍树
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <functional>
+#include <iomanip>
+#include <iostream>
+#include <queue>
+#include <string>
+#include <utility>
+#include <vector>
 using namespace std;
 
 // ---------- 1. 消灭怪物的最大数量 ----------
@@ -15,7 +23,7 @@ int eliminateMaximum(vector<int>& dist, vector<int>& speed) {
 
 // ---------- 2. 最大回文数字 ----------
 string largestPalindromic(const string& num) {
-    int cnt[10] = {0};
+    std::array<int, 10> cnt= {0};
     for (char c : num) cnt[c - '0']++;
     string half;
     char mid = 0;
@@ -103,13 +111,13 @@ long long cutTreesBrute(vector<vector<int>> tree, int day) {
 
 int main() {
     vector<int> dist = {1,3,4}, speed = {1,1,1};
-    printf("消灭怪物 = %d\n", eliminateMaximum(dist, speed));       // 3
-    printf("最大回文数字 = %s\n", largestPalindromic("444947137").c_str());
+    std::cout << "消灭怪物 = " << eliminateMaximum(dist, speed) << "\n";       // 3
+    std::cout << "最大回文数字 = " << largestPalindromic("444947137") << "\n";
     vector<vector<int>> cls = {{1,2},{3,5},{2,2}};
-    printf("最大平均通过率 = %.5f\n", maxAverageRatio(cls, 2));
+    std::cout << "最大平均通过率 = " << std::fixed << std::setprecision(5) << maxAverageRatio(cls, 2) << std::defaultfloat << std::setprecision(6) << "\n";
     vector<int> q = {10,20,5}, w = {70,50,30};
-    printf("雇佣最低成本 = %.5f\n", mincostToHireWorkers(q, w, 2));  // 105.00000
+    std::cout << "雇佣最低成本 = " << std::fixed << std::setprecision(5) << mincostToHireWorkers(q, w, 2) << std::defaultfloat << std::setprecision(6) << "\n";  // 105.00000
     vector<vector<int>> tree = {{1,2},{2,1}};
-    printf("砍树最大收益 = %lld (暴力 = %lld)\n", cutTrees(tree, 2), cutTreesBrute(tree, 2));
+    std::cout << "砍树最大收益 = " << cutTrees(tree, 2) << " (暴力 = " << cutTreesBrute(tree, 2) << ")\n";
     return 0;
 }

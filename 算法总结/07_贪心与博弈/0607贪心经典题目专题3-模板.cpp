@@ -1,6 +1,11 @@
 // 贪心专题3模板：最短无序子数组 / 最小区间 / 组团买票 / 平均值和 / 初始电量 / 01区间
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <climits>
+#include <iostream>
+#include <queue>
+#include <set>
+#include <vector>
 using namespace std;
 
 // ---------- 1. 最短无序连续子数组（O(n) 两遍扫描） ----------
@@ -95,12 +100,12 @@ int maxEqualZerosOnes(const vector<int>& arr) {
 }
 
 int main() {
-    printf("最短无序子数组 = %d\n", findUnsortedSubarray({2,6,4,8,10,9,15}));   // 5
+    std::cout << "最短无序子数组 = " << findUnsortedSubarray({2,6,4,8,10,9,15}) << "\n";   // 5
     vector<vector<int>> lists = {{4,10,15,24,26},{0,9,12,20},{5,18,22,30}};
     auto r = smallestRange(lists);
-    printf("最小区间 = [%d, %d]\n", r[0], r[1]);                                 // [20,24]
-    printf("最小初始电量 = %d\n", minimumEffort({{1,2},{2,4},{4,8}}));           // 8
-    printf("平均值和 = %d\n", minAverageSum({1,2,3,4,5}, 2));                    // 4
-    printf("01 最大长度 = %d\n", maxEqualZerosOnes({0,1,1,0,0,1}));              // 5
+    std::cout << "最小区间 = [" << r[0] << ", " << r[1] << "]\n";                                 // [20,24]
+    std::cout << "最小初始电量 = " << minimumEffort({{1,2},{2,4},{4,8}}) << "\n";           // 8
+    std::cout << "平均值和 = " << minAverageSum({1,2,3,4,5}, 2) << "\n";                    // 4
+    std::cout << "01 最大长度 = " << maxEqualZerosOnes({0,1,1,0,0,1}) << "\n";              // 5
     return 0;
 }
