@@ -1,6 +1,7 @@
 // 快速幂 + 矩阵快速幂模板
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
 const long long MOD = 1000000007;
 
@@ -107,11 +108,11 @@ int checkRecord(int n) {
 }
 
 int main() {
-    printf("quickPower(3,10,1e9+7) = %lld\n", quickPower(3, 10, MOD));   // 59049
-    printf("fib(10) = %lld\n", fib(10));                                 // 55
-    printf("tribonacci(10) = %lld\n", tribonacci(10));                   // 149
-    printf("numTilings(3) = %lld\n", numTilings(3));                     // 5
-    printf("countVowelPermutation(2) = %d\n", countVowelPermutation(2)); // 10
-    printf("checkRecord(2) = %d\n", checkRecord(2));                     // 8
+    std::cout << "quickPower(3,10,1e9+7) = " << quickPower(3, 10, MOD) << "\n";   // 59049
+    std::cout << "fib(10) = " << fib(10) << "\n";                                 // 55
+    std::cout << "tribonacci(10) = " << tribonacci(10) << "\n";                   // 149
+    std::cout << "numTilings(3) = " << numTilings(3) << "\n";                     // 5
+    std::cout << "countVowelPermutation(2) = " << countVowelPermutation(2) << "\n"; // 10
+    std::cout << "checkRecord(2) = " << checkRecord(2) << "\n";                     // 8
     return 0;
 }

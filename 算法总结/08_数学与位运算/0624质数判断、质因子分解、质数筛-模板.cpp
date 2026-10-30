@@ -1,6 +1,8 @@
 // 质数模板：试除判质 / 埃氏筛 / 欧拉筛 / 质因子分解 / Miller-Rabin / 计数
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <array>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 // ---------- 1. 小范围判质数 O(√n) ----------
@@ -72,8 +74,10 @@ bool witness(long long a, long long n) {
 bool millerRabin(long long n) {
     if (n <= 2) return n == 2;
     if (!(n & 1)) return false;
-    static const long long test[] = {2,3,5,7,11,13,17,19,23,29,31,37};
-    for (long long a : test) {
+    static const std::array<long long, 12> bases = {
+        2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37
+    };
+    for (long long a : bases) {
         if (a >= n) break;
         if (witness(a, n)) return false;
     }
@@ -93,13 +97,13 @@ int countPrimes(int n) {
 }
 
 int main() {
-    printf("isPrime(97) = %d\n", (int)isPrime(97));                       // 1
-    printf("埃氏筛 30 以内个数 = %d\n", (int)primesUpTo(30).size());       // 10
-    printf("欧拉筛 30 以内个数 = %d\n", (int)primesLinear(30).size());     // 10
-    printf("360 的不同质因子: ");
-    for (long long x : primeFactors(360)) printf("%lld ", x);              // 2 3 5
-    puts("");
-    printf("millerRabin(1000000007) = %d\n", (int)millerRabin(1000000007));// 1
-    printf("countPrimes(10) = %d\n", countPrimes(10));                     // 4
+    std::cout << "isPrime(97) = " << (int)isPrime(97) << "\n";                       // 1
+    std::cout << "埃氏筛 30 以内个数 = " << (int)primesUpTo(30).size() << "\n";       // 10
+    std::cout << "欧拉筛 30 以内个数 = " << (int)primesLinear(30).size() << "\n";     // 10
+    std::cout << "360 的不同质因子: ";
+    for (long long x : primeFactors(360)) std::cout << x << " ";              // 2 3 5
+    std::cout << "\n";
+    std::cout << "millerRabin(1000000007) = " << (int)millerRabin(1000000007) << "\n";// 1
+    std::cout << "countPrimes(10) = " << countPrimes(10) << "\n";                     // 4
     return 0;
 }

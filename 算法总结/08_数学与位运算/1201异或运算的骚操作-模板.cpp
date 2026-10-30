@@ -1,6 +1,9 @@
 // 异或技巧模板：交换 / 不用判断求最大值 / 缺失数 / 奇数次 / 按位统计
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <utility>
+#include <vector>
 using namespace std;
 
 // ---------- 1. 交换（i==j 会清零，不推荐） ----------
@@ -56,12 +59,12 @@ int findLessThanM(const vector<int>& a, int m) {
 }
 
 int main() {
-    printf("getMax(3,-5) = %d\n", getMax(3, -5));                // 3
-    printf("缺失的数字 = %d\n", missingNumber({0,1,2,3,5}));      // 4
+    std::cout << "getMax(3,-5) = " << getMax(3, -5) << "\n";                // 3
+    std::cout << "缺失的数字 = " << missingNumber({0,1,2,3,5}) << "\n";      // 4
     pair<int,int> p = singleNumber2({1,2,1,3});
-    printf("两种奇数次 = %d %d\n", p.first, p.second);            // 2 3
-    printf("出现次数<m的数 = %d\n", findLessThanM({5,5,5,3}, 3));  // 3
+    std::cout << "两种奇数次 = " << p.first << " " << p.second << "\n";            // 2 3
+    std::cout << "出现次数<m的数 = " << findLessThanM({5,5,5,3}, 3) << "\n";  // 3
     int x = 6, y = 7; mySwap(x, y);
-    printf("swap 后 = %d %d\n", x, y);
+    std::cout << "swap 后 = " << x << " " << y << "\n";
     return 0;
 }

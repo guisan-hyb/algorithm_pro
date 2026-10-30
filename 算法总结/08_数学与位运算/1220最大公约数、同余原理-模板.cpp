@@ -1,6 +1,8 @@
 // 数论基础模板：gcd/lcm / 神奇数字 / 同余工具 / 逆元
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <numeric>
 using namespace std;
 
 // ---------- gcd / lcm ----------
@@ -51,11 +53,11 @@ long long invModExgcd(long long a, long long m) {
 }
 
 int main() {
-    printf("gcd(12,18) = %lld\n", gcd_(12, 18));                        // 6
-    printf("lcm(4,6) = %lld\n", lcm_(4, 6));                            // 12
-    printf("第 3 个神奇数字(2,3) = %d\n", nthMagicalNumber(3, 2, 3));   // 6
-    printf("subMod(3,5,7) = %lld\n", subMod(3, 5, 7));                  // 5
-    printf("invModFermat(2,1e9+7) = %lld\n", invModFermat(2, 1000000007));  // 500000004
-    printf("invModExgcd(3,11) = %lld\n", invModExgcd(3, 11));           // 4
+    std::cout << "gcd(12,18) = " << gcd_(12, 18) << "\n";                        // 6
+    std::cout << "lcm(4,6) = " << lcm_(4, 6) << "\n";                            // 12
+    std::cout << "第 3 个神奇数字(2,3) = " << nthMagicalNumber(3, 2, 3) << "\n";   // 6
+    std::cout << "subMod(3,5,7) = " << subMod(3, 5, 7) << "\n";                  // 5
+    std::cout << "invModFermat(2,1e9+7) = " << invModFermat(2, 1000000007) << "\n";  // 500000004
+    std::cout << "invModExgcd(3,11) = " << invModExgcd(3, 11) << "\n";           // 4
     return 0;
 }

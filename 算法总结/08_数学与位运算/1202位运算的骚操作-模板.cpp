@@ -1,6 +1,6 @@
 // 位运算骚操作模板：2/3 的幂 / 最近 2 的幂 / 区间按位与 / 翻转 / 数 1
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
 // ---------- 1. 2 的幂 ----------
@@ -49,12 +49,12 @@ int countOne(unsigned n) {
 int hammingDistance(int x, int y) { return countOne((unsigned)(x ^ y)); }
 
 int main() {
-    printf("isPowerOfTwo(16) = %d\n", (int)isPowerOfTwo(16));      // 1
-    printf("isPowerOfThree(27) = %d\n", (int)isPowerOfThree(27));  // 1
-    printf("near2Power(17) = %d\n", near2Power(17));               // 32
-    printf("rangeBitwiseAnd(5,7) = %d\n", rangeBitwiseAnd(5, 7));  // 4
-    printf("reverseBits(1) = %u\n", reverseBits(1));               // 2147483648
-    printf("countOne(0b1011) = %d\n", countOne(0b1011));           // 3
-    printf("hammingDistance(1,4) = %d\n", hammingDistance(1, 4));  // 2
+    std::cout << "isPowerOfTwo(16) = " << (int)isPowerOfTwo(16) << "\n";      // 1
+    std::cout << "isPowerOfThree(27) = " << (int)isPowerOfThree(27) << "\n";  // 1
+    std::cout << "near2Power(17) = " << near2Power(17) << "\n";               // 32
+    std::cout << "rangeBitwiseAnd(5,7) = " << rangeBitwiseAnd(5, 7) << "\n";  // 4
+    std::cout << "reverseBits(1) = " << reverseBits(1) << "\n";               // 2147483648
+    std::cout << "countOne(0b1011) = " << countOne(0b1011) << "\n";           // 3
+    std::cout << "hammingDistance(1,4) = " << hammingDistance(1, 4) << "\n";  // 2
     return 0;
 }
