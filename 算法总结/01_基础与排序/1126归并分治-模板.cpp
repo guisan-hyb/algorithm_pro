@@ -2,7 +2,8 @@
 // 时间 O(n log n)，额外空间 O(n)
 // 判别三步法：① 大范围 = 左 + 右 + 跨左右？ ② 左右有序后跨越部分能否滑窗？ ③ 都成立即可用
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 vector<int> a, help;
@@ -50,14 +51,14 @@ long long reversePairs(int l, int r) {
 
 int main() {
     int n;
-    if (scanf("%d", &n) != 1) return 0;
+    if (!(std::cin >> n)) return 0;
     a.resize(n);
     help.resize(n);
-    for (int& x : a) scanf("%d", &x);
+    for (int& x : a) (std::cin >> x);
 
     vector<int> origin = a;                 // 两个函数都会打乱数组，各跑一份
-    printf("smallSum = %lld\n", smallSum(0, n - 1));
+    std::cout << "smallSum = " << smallSum(0, n - 1) << "\n";
     a = origin;
-    printf("reversePairs = %lld\n", reversePairs(0, n - 1));
+    std::cout << "reversePairs = " << reversePairs(0, n - 1) << "\n";
     return 0;
 }

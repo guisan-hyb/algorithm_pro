@@ -2,56 +2,72 @@
 // 用途：小数据量排序、对数器暴力解、手写热身
 // 复杂度：时间 O(n^2)，额外空间 O(1)
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 // ---------- 选择排序：不稳定 ----------
-void selectionSort(int* a, int n) {
-    if (n < 2) return;
-    for (int i = 0; i < n - 1; i++) {
-        int idx = i;                          // 先记下标，循环结束再交换
-        for (int j = i + 1; j < n; j++)
-            if (a[j] < a[idx]) idx = j;
-        swap(a[i], a[idx]);
+void selectionSort(vector<int>& values) {
+    int length = static_cast<int>(values.size());
+    for (int start = 0; start < length - 1; start++) {
+        int minimumIndex = start;
+        for (int index = start + 1; index < length; index++) {
+            if (values[index] < values[minimumIndex]) {
+                minimumIndex = index;
+            }
+        }
+        swap(values[start], values[minimumIndex]);
     }
 }
 
 // ---------- 冒泡排序：稳定 ----------
-void bubbleSort(int* a, int n) {
-    if (n < 2) return;
-    for (int i = 0; i < n - 1; i++) {
-        bool sorted = true;
-        for (int j = 0; j < n - i - 1; j++) {
-            if (a[j] > a[j + 1]) {
-                swap(a[j], a[j + 1]);
-                sorted = false;
+void bubbleSort(vector<int>& values) {
+    int length = static_cast<int>(values.size());
+    for (int end = length - 1; end > 0; end--) {
+        bool isSorted = true;
+        for (int index = 0; index < end; index++) {
+            if (values[index] > values[index + 1]) {
+                swap(values[index], values[index + 1]);
+                isSorted = false;
             }
         }
-        if (sorted) break;
+        if (isSorted) {
+            break;
+        }
     }
 }
 
 // ---------- 插入排序：稳定，近乎有序时接近 O(n) ----------
-void insertionSort(int* a, int n) {
-    if (n < 2) return;
-    for (int i = 1; i < n; i++)
-        for (int j = i - 1; j >= 0 && a[j] > a[j + 1]; j--)
-            swap(a[j], a[j + 1]);
+void insertionSort(vector<int>& values) {
+    int length = static_cast<int>(values.size());
+    for (int index = 1; index < length; index++) {
+        for (int position = index;
+             position > 0 && values[position - 1] > values[position];
+             position--) {
+            swap(values[position - 1], values[position]);
+        }
+    }
 }
 
 // ---------- 自测 ----------
 int main() {
-    int n;
-    if (scanf("%d", &n) != 1) return 0;
-    vector<int> a(n), b(n), c(n);
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &a[i]);
-        b[i] = c[i] = a[i];
+    int length;
+    if (!(cin >> length)) {
+        return 0;
     }
-    selectionSort(a.data(), n);
-    bubbleSort(b.data(), n);
-    insertionSort(c.data(), n);
-    for (int i = 0; i < n; i++)
-        printf("%d%c", a[i], " \n"[i == n - 1]);
+    vector<int> selectionValues(length);
+    for (int& value : selectionValues) {
+        cin >> value;
+    }
+    vector<int> bubbleValues = selectionValues;
+    vector<int> insertionValues = selectionValues;
+    selectionSort(selectionValues);
+    bubbleSort(bubbleValues);
+    insertionSort(insertionValues);
+    for (int index = 0; index < length; index++) {
+        cout << selectionValues[index]
+             << (index + 1 == length ? "\n" : " ");
+    }
     return 0;
 }

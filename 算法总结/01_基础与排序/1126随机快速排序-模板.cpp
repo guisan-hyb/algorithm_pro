@@ -1,7 +1,11 @@
 // 随机快速排序模板：荷兰国旗三分区版（推荐）
 // 期望时间 O(n log n)，额外空间 O(log n)（递归栈），不稳定
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 int firstIdx, lastIdx;          // 等于 x 的区间 [firstIdx, lastIdx]
@@ -34,10 +38,10 @@ void quickSort(vector<int>& a, int l, int r) {
 int main() {
     srand((unsigned)time(nullptr));
     int n;
-    if (scanf("%d", &n) != 1 || n <= 0) return 0;
+    if (!(std::cin >> n) || n <= 0) return 0;
     vector<int> a(n);
-    for (int& x : a) scanf("%d", &x);
+    for (int& x : a) (std::cin >> x);
     quickSort(a, 0, n - 1);
-    for (int i = 0; i < n; i++) printf("%d%c", a[i], " \n"[i == n - 1]);
+    for (int i = 0; i < n; i++) std::cout << a[i] << " \n"[i == n - 1];
     return 0;
 }

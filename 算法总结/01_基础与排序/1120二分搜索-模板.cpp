@@ -1,7 +1,8 @@
 // 二分搜索模板：找最左/最右边界 + 无序数组找峰值
 // 时间 O(log n)，额外空间 O(1)
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 // ---------- 1. 有序数组中 >= value 的最左位置 ----------
@@ -45,13 +46,13 @@ int findPeak(const vector<int>& a) {
 // ---------- 自测：读入 n 个升序数 + 查询值 ----------
 int main() {
     int n, q;
-    if (scanf("%d %d", &n, &q) != 2) return 0;
+    if (!(std::cin >> n >> q)) return 0;
     vector<int> a(n);
-    for (int& x : a) scanf("%d", &x);
+    for (int& x : a) (std::cin >> x);
     while (q--) {
         int x;
-        scanf("%d", &x);
-        printf(">=(%d) left=%d  <=(%d) right=%d\n", x, findLeft(a, x), x, findRight(a, x));
+        (std::cin >> x);
+        std::cout << ">=(" << x << ") left=" << findLeft(a, x) << "  <=(" << x << ") right=" << findRight(a, x) << "\n";
     }
     return 0;
 }

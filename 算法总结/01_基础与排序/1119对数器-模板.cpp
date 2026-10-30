@@ -1,7 +1,11 @@
 // 对数器模板：随机样本 + 双解法比对
 // 用法：把 solveA / solveB 换成你要验证的两个实现，先跑小数据量
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <chrono>
+#include <iostream>
+#include <random>
+#include <vector>
 using namespace std;
 
 static mt19937 gen(chrono::steady_clock::now().time_since_epoch().count());
@@ -41,12 +45,12 @@ int main() {
         vector<int> b = a;                        // 两份相同样本
         long long ra = solveA(a), rb = solveB(b);
         if (ra != rb) {
-            printf("发现不一致！样本 n=%d\n", (int)b.size());
-            for (int x : b) printf("%d ", x);
-            printf("\na = %lld, b = %lld\n", ra, rb);
+            std::cout << "发现不一致！样本 n=" << (int)b.size() << "\n";
+            for (int x : b) std::cout << x << " ";
+            std::cout << "\na = " << ra << ", b = " << rb << "\n";
             return 0;                             // 打印错误样本，人工干预
         }
     }
-    printf("全部 %d 组样本一致\n", TEST);
+    std::cout << "全部 " << TEST << " 组样本一致\n";
     return 0;
 }

@@ -1,7 +1,9 @@
 // 基数排序模板（LSD，低位优先，十进制）+ 负数处理
 // 时间 O(n)，额外空间 O(n + BASE)，稳定
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 const int BASE = 10;
@@ -41,10 +43,10 @@ void sortWithNegative(vector<int>& a) {
 
 int main() {
     int n;
-    if (scanf("%d", &n) != 1 || n <= 0) return 0;
+    if (!(std::cin >> n) || n <= 0) return 0;
     vector<int> a(n);
-    for (int& x : a) scanf("%d", &x);
+    for (int& x : a) (std::cin >> x);
     sortWithNegative(a);
-    for (int i = 0; i < n; i++) printf("%d%c", a[i], " \n"[i == n - 1]);
+    for (int i = 0; i < n; i++) std::cout << a[i] << " \n"[i == n - 1];
     return 0;
 }

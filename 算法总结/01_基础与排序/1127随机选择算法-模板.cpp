@@ -1,7 +1,11 @@
 // 随机选择算法模板：O(n) 求第 K 大 / 第 K 小
 // 期望时间 O(n)，最坏 O(n^2)（概率极低）；额外空间 O(1)
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 int firstIdx, lastIdx;
@@ -39,12 +43,12 @@ int findKthSmallest(vector<int>& a, int k) {         // 第 k 小 = 升序下标
 int main() {
     srand((unsigned)time(nullptr));
     int n, k;
-    if (scanf("%d %d", &n, &k) != 2) return 0;
+    if (!(std::cin >> n >> k)) return 0;
     vector<int> a(n), backup;
-    for (int& x : a) scanf("%d", &x);
+    for (int& x : a) (std::cin >> x);
     backup = a;
-    printf("第 %d 大 = %d\n", k, findKthLargest(a, k));
+    std::cout << "第 " << k << " 大 = " << findKthLargest(a, k) << "\n";
     a = backup;
-    printf("第 %d 小 = %d\n", k, findKthSmallest(a, k));
+    std::cout << "第 " << k << " 小 = " << findKthSmallest(a, k) << "\n";
     return 0;
 }

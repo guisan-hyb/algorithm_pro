@@ -1,7 +1,9 @@
 // 归并排序模板：递归版 + 迭代版
 // 时间 O(n log n)，额外空间 O(n)，稳定排序
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 vector<int> a, help;
@@ -39,12 +41,12 @@ void mergeSortIterative(int n) {
 
 int main() {
     int n;
-    if (scanf("%d", &n) != 1 || n <= 0) return 0;
+    if (!(std::cin >> n) || n <= 0) return 0;
     a.resize(n);
     help.resize(n);
-    for (int& x : a) scanf("%d", &x);
+    for (int& x : a) (std::cin >> x);
     mergeSort(0, n - 1);
     // mergeSortIterative(n);   // 二选一
-    for (int i = 0; i < n; i++) printf("%d%c", a[i], " \n"[i == n - 1]);
+    for (int i = 0; i < n; i++) std::cout << a[i] << " \n"[i == n - 1];
     return 0;
 }

@@ -57,25 +57,51 @@ T(n) = a * T(n / b) + O(n^c)
 3. `log_b(a)` 的底是真数在下、底数在上，写公式时注意别把 `log_b a` 写成 `log_a b`；
 4. 公式里 `O(n^c)` 只算"本层除了递归调用之外的代价"，merge 的 O(n) 要算进去，`int mid = (l+r)/2` 这种 O(1) 不算。
 
-## 模板（默写骨架）
+## 模板（可直接编译运行）
 
 ```cpp
-// master 公式使用流程（伪代码，不需要背代码，背流程）
-// 1) 写出递归式 T(n) = a * T(n/b) + O(n^c)
-// 2) 检查：每个子问题规模是否相同？不同则公式不适用
-// 3) 算 log_b(a)，与 c 比较，查表得复杂度
-//
-// 常用结论：
-//   T(n) = 2T(n/2) + O(1)   -> O(n)            例：区间求最大值
-//   T(n) = 2T(n/2) + O(n)   -> O(n log n)      例：归并排序
-//   T(n) = 2T(n/2) + O(n^2) -> O(n^2)          例：某些暴力分治
-//   T(n) = T(n/2)  + O(1)   -> O(log n)        例：二分
-//   T(n) = 2T(n/2) + O(n log n) -> O(n log^2 n)例：某些带排序的归并分治
+// 递归与 master 公式：模板 + 自测
+// 记住结论，别每次现场画递归树
+#define _CRT_SECURE_NO_WARNINGS
+#include <algorithm>
+#include <climits>
+#include <iostream>
+#include <vector>
+using namespace std;
 
-int maxValue(int* arr, int l, int r) {       // 区间求最大值：T(n)=2T(n/2)+O(1) -> O(n)
-    if (l == r) return arr[l];
-    int mid = (l + r) / 2;
-    return max(maxValue(arr, l, mid), maxValue(arr, mid + 1, r));
+// T(n) = 2T(n/2) + O(1) -> O(n)：区间求最大值
+int maxValue(const vector<int>& a, int l, int r) {
+    if (l == r) return a[l];
+    int mid = l + ((r - l) >> 1);
+    return max(maxValue(a, l, mid), maxValue(a, mid + 1, r));
+}
+
+// T(n) = 2T(n/2) + O(n) -> O(n log n)：归并排序的复杂度来源（见 1125 归并排序）
+// T(n) = T(n/2) + O(1)  -> O(log n)：二分（见 1120 二分搜索）
+
+// 递归改非递归的两个方向（此处只示范区间求最大值的显式栈写法）
+int maxValueIterative(const vector<int>& a) {
+    if (a.empty()) return INT_MIN;
+    // 自底向上合并：把相邻区间两两合并，直到只剩一个区间
+    vector<int> cur = a;
+    while (cur.size() > 1) {
+        vector<int> nxt;
+        for (size_t i = 0; i < cur.size(); i += 2) {
+            if (i + 1 < cur.size()) nxt.push_back(max(cur[i], cur[i + 1]));
+            else nxt.push_back(cur[i]);
+        }
+        cur.swap(nxt);
+    }
+    return cur[0];
+}
+
+int main() {
+    int n;
+    if (!(std::cin >> n) || n <= 0) return 0;
+    vector<int> a(n);
+    for (int& x : a) (std::cin >> x);
+    std::cout << maxValue(a, 0, n - 1) << " " << maxValueIterative(a) << "\n";
+    return 0;
 }
 ```
 
@@ -88,3 +114,38 @@ int maxValue(int* arr, int l, int r) {       // 区间求最大值：T(n)=2T(n/2
 
 - 递归到非递归的两种手段：自己开显式栈、改成迭代（如归并/快排的循环版本）；
 - 二叉树遍历的非递归实现见 `1124二叉树遍历的非递归实现和复杂度分析`。
+
+## 专题深化：为什么成立
+
+Master 公式由递归树推导：`T(n)=aT(n/b)+f(n)`，叶子层总代价约 `n^(log_b a)`，合并层总代价由 `f(n)` 决定，比较两者量级得到三种情况。
+
+## 专题深化：手算与边界
+
+`T(n)=2T(n/2)+n` 每层总代价都是 n，共 log n 层，所以 O(n log n)；`T(n)=T(n/2)+1` 只有一个节点逐层缩小，所以 O(log n)。
+
+### 对照与取舍
+
+递归树适合直观求和，代入法适合验证猜想，Master 适合标准分治形式。像 `T(n)=T(n-1)+T(n-2)` 不符合等比例缩小，不能硬套。
+
+### 易错点与反例
+
+1. b 必须大于 1
+2. 子问题规模应近似相等
+3. 只分析递归而不计入合并常数会导致错误直觉
+4. 深递归在工程上还要检查栈空间
+
+## 专题深化：进阶拓展
+
+Akra–Bazzi 可处理不规则分治；主定理的扩展还允许乘对数因子。实际编程中应按迭代实现成本决定是否值得递归。
+
+## 专题深化：面试追问
+
+1. 三种情况分别由哪一层主导？
+2. a、b、f(n) 各是什么？
+3. 为什么归并排序是 O(n log n)？
+
+## 专题深化：自测（闭卷）
+
+1. 推导 `T(n)=3T(n/3)+n`
+2. 判断 `T(n)=2T(n/3)+n`
+3. 给一个不能用 Master 的递推式

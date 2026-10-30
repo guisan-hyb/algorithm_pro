@@ -1,7 +1,10 @@
 // 递归与 master 公式：模板 + 自测
 // 记住结论，别每次现场画递归树
 #define _CRT_SECURE_NO_WARNINGS
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <climits>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 // T(n) = 2T(n/2) + O(1) -> O(n)：区间求最大值
@@ -32,9 +35,9 @@ int maxValueIterative(const vector<int>& a) {
 
 int main() {
     int n;
-    if (scanf("%d", &n) != 1 || n <= 0) return 0;
+    if (!(std::cin >> n) || n <= 0) return 0;
     vector<int> a(n);
-    for (int& x : a) scanf("%d", &x);
-    printf("%d %d\n", maxValue(a, 0, n - 1), maxValueIterative(a));
+    for (int& x : a) (std::cin >> x);
+    std::cout << maxValue(a, 0, n - 1) << " " << maxValueIterative(a) << "\n";
     return 0;
 }
