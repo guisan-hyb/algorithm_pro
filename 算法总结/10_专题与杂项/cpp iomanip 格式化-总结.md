@@ -113,6 +113,41 @@ string in; cin >> quoted >> in;                       // 输入 "Hello, C++!" �
 1. `setw` **不粘性**：每个字段前都要写一次；
 2. `setprecision` 的含义随 `fixed/scientific` 改变（总有效数字 vs 小数位数）；
 3. 操纵符是**粘性**的，改完记得恢复（`dec/noshowbase/nouppercase/defaultfloat/setfill(' ')`）；
-4. 竞赛里输出量大时 `cout << fixed << setprecision(...)` 比 `printf` 慢，需要 `ios::sync_with_stdio(false)`；
+4. 竞赛里输出量大时要关闭 `iostream` 同步并避免频繁刷新；
 5. `setbase` 只接受 8/10/16；
 6. 读整行要用 `getline`，`cin >> ws` 只跳空白不读整行。
+
+## 专题深化：为什么成立
+
+`iomanip` 提供宽度、填充、精度和进制控制。宽度默认只作用于下一次输出，精度和小数格式会持续影响流状态，因此格式化后要恢复 `defaultfloat` 或保存 flags。
+
+## 专题深化：手算与边界
+
+`cout << fixed << setprecision(2) << 1.2` 输出 1.20；`setw(5)` 只给紧接的一个值补空格；`hex` 会持续到改为 `dec`。
+
+### 对照与取舍
+
+C 风格格式化直观但本项目统一使用 iostream；`format` 在 C++20 更方便，但需较新标准。
+
+### 易错点与反例
+
+1. `setw` 不会自动重复
+2. 负数宽度/填充要测试
+3. 浮点设置会污染后续输出
+4. 混合整数和浮点输出要显式切换
+
+## 专题深化：进阶拓展
+
+自定义流操纵器可封装重复格式；大规模输出仍应关闭同步并减少 flush。
+
+## 专题深化：面试追问
+
+1. setw 的作用范围？
+2. fixed 如何恢复？
+3. 为什么 endl 会频繁 flush？
+
+## 专题深化：自测（闭卷）
+
+1. 格式化小数两位
+2. 十六进制后恢复十进制
+3. 用 setw 对齐表格
